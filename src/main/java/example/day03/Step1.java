@@ -21,7 +21,7 @@ class Book{ //class start
 public class Step1 {
     public static void main(String[] args) {
         //1. 객체 생성
-        Book book1 = new Book(200, "ANT"); //스택메모리에 : book1 =(참조) 힙메모리 : ex > 302번지 객체 생성
+        Book book1 = new Book(200, "개미"); //스택메모리에 : book1 =(참조) 힙메모리 : ex > 302번지 객체 생성
         
         //2. Book 클래스의 메소드가 아닌 Object 클래스의 메소드를 호출
         //참조 변수를 출력하면 toString() 가 자동으로 호출 된다. (주소값) ▼
