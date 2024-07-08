@@ -36,7 +36,7 @@ public class Step2 {
         //
         //str1.clone(); // 기본적으로 clone() 메소드 사용이 불가능
         Object object = new Object();
-        //object.clone(); // 기본적으로 clone() 메소드 사용이 불가능.
+        //object.clone(); // 기본적으로 clone() 메소드 사용이 불가능
 
     }
 }
