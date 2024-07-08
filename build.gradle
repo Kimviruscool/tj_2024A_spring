@@ -18,9 +18,11 @@ repositories {
 }
 
 dependencies {
+    //SPRINGBOOT WEB 라이브러리
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    //Mysql 라이브러리
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
 }
 
 tasks.named('test') {
