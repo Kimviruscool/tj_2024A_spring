@@ -1,24 +1,19 @@
 package example.day02.springwebmvc.model.dto;
 
 public class PhoneDto {
-    //[1]멤버변수
+    // [1] 멤버변수
     private int id;
     private String name;
     private String phone;
-        //+DB 테이블 존재하지 않는 매개변수 추가 가능
-
-    //[2]생성자
+    // + DB TABLE 존재하지 않는 매개변수 추가
+    // [2] 생성자
     public PhoneDto(){}
-
     public PhoneDto(int id, String name, String phone) {
         this.id = id;
         this.name = name;
         this.phone = phone;
     }
-
-    //[3]메소드
-
-    //toString
+    // [3] 메소드
     @Override
     public String toString() {
         return "PhoneDto{" +
@@ -28,7 +23,6 @@ public class PhoneDto {
                 '}';
     }
 
-    //getter & setter
     public int getId() {
         return id;
     }
