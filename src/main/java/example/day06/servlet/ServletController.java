@@ -42,7 +42,15 @@ public class ServletController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("ServletController.doGet");
         System.out.println("HTTP의 GET 메소드 방식으로 요청이 들어왔습니다.");
-        super.doGet(req, resp); //super.메소드(): 부모클래스 메소드 호출
+//      super.doGet(req, resp); //super.메소드(): 부모클래스 메소드 호출
+
+        //http://localhost:8080/day06/servlet?data=serverHi
+
+        // - 요청 데이터 : 매개변수처럼 HTTP 요청시 들어오는 데이터 , HTTP 요청 관련 객체 : HttpServletRequest request
+        System.out.println("request data : " + req.getParameter("data"));
+
+        //- 응답 데이터 : 리턴값처럼 HTTP 응답시 반환하는 데이터 HTTP 응답 정보 관련 객체 :HttpServletResponse response
+        resp.getWriter().print("respone data : [GET]ClientHi");
     }
 
     //2. doPost
@@ -50,7 +58,11 @@ public class ServletController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("ServletController.doPost");
         System.out.println(">> HTTP의 Post 메소드 방식으로 요청이 들어왔습니다. ");
-        super.doPost(req, resp);
+//        super.doPost(req, resp);
+        //1. 요청 데이터
+        System.out.println("request Data : " + req.getParameter("data"));
+        //2. 응답 데이터
+        resp.getWriter().print("respone Data : [Post] Client Hi");
     }
 
     //3. doPut
@@ -58,7 +70,9 @@ public class ServletController extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("ServletController.doPut");
         System.out.println(">>HTTP의 put메소드 방식으로 요청이 들어왔습니다");
-        super.doPut(req, resp);
+//        super.doPut(req, resp);
+        System.out.println("request Data : " + req.getParameter("data"));
+        resp.getWriter().print("respone DATA : [PUT] Client Hi");
     }
 
     //4. doDelete
@@ -66,6 +80,8 @@ public class ServletController extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("ServletController.doDelete");
         System.out.println(">>HTTP의 delete 메소드 방식으로 요청이 들어왔습니다");
-        super.doDelete(req, resp);
+//        super.doDelete(req, resp);
+        System.out.println("request Data : " + req.getParameter("data"));
+        resp.getWriter().print("respone DATA : [Delete] Client Hi");
     }
 }
