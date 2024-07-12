@@ -13,6 +13,13 @@
         value : 해당 메소드를 매핑할 HTTP 주소를 정의 ex) : /example/rest1
         method=RequestMethod.XXX : XXX에 HTTP의 GET, POST, PUT, DELETE 입력
 
+    [2] 각 매핑의 HTTP 메소드를 매핑해서 URL을 찾는다.
+    @GetMapping("HTTP URL 주소 정의")
+    @PostMapping("HTTP URL 주소 정의")
+    @PutMapping("HTTP URL 주소 정의")
+    @DeleteMapping("HTTP URL 주소 정의")
+
+
 HTTP 데이터 ()받는 방법
     쿼리스트링 : URL?key=value&key2=value2&key3=value3
                 (URL주소 뒤에 ? 부터 시작되는 key(변수명)=value(변수의값) &(변수구분))
@@ -24,6 +31,8 @@ HTTP 데이터 ()응답 방법
         -getWriter().print("응답할 데이터");
     [2] @ResponseBody
     return 데이터자료; *메소드의 리턴타입 일치
+    (2-1) 메소드 위에 @ResponseBody : 해당 메소드의 반환 (자바)타입을 (http) 타입으로 변환
+    (2-2) 클래스 위에 @RestController : 해당하는 클래스내 모든 메소드는 @ResponseBody 생략해도 기능이 적용된다.
 
     자바의 기본타입(int boolean 등등) 처럼 HTTP의 타입 존재
     HTTP Content-Type
