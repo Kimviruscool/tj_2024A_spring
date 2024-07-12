@@ -26,6 +26,12 @@ HTTP 데이터 ()받는 방법
     [1] HttpServletRequest req
         -getParameter("쿼리스트링매개변수key")
 
+    [2] @RequestParam
+
+
+    * HTTP BODY 본문 (주로 JSON)
+    [1] @RequestBody
+
 HTTP 데이터 ()응답 방법
     [1] HttpServletResponse
         -getWriter().print("응답할 데이터");
