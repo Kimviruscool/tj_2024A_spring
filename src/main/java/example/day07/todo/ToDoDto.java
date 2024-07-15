@@ -1,16 +1,16 @@
 package example.day07.todo;
 
-public class todoDto {
+public class ToDoDto {
     private int tNo;
     private String toDo;
     private int tState;
 
-    public todoDto(){}
+    public ToDoDto(){}
 
-    public todoDto(int tNo, String toDo, int tState) {
+    public ToDoDto(int tNo, String toDo, int tState) {
         this.tNo = tNo;
         this.toDo = toDo;
-        this.tState = tState;
+        this.tState = 0;
     }
 
     public int gettNo() {
@@ -39,7 +39,7 @@ public class todoDto {
 
     @Override
     public String toString() {
-        return "todoDto{" +
+        return "ToDoDto{" +
                 "tNo=" + tNo +
                 ", toDo='" + toDo + '\'' +
                 ", tState=" + tState +
