@@ -9,7 +9,7 @@ function get(){
     todoList = {todo : todo , tno : tno, tstate : tstate};
     $.ajax({
         url : "/todo/get",
-        method : 'get',
+        method : 'get',    
         data : {'key' : todo},
         success : function(response){
             console.log(response);
@@ -35,7 +35,7 @@ function print(){
                 console.log(result)
                 result.forEach(todoBox => {
                     if(todoBox.tState == 0){
-                    html += `<div id = "whiteBox">
+                    html += `<div id = "whiteBox"> 
                                 <span>
                                 ${todoBox.toDo}
                                 </span>
@@ -43,7 +43,7 @@ function print(){
                     <button type="button" onclick="remove( ${ todoBox.tNo } )"> 삭제 </button>
                     </div>`
                     } else if(todoBox.tState == 1){
-                        html += `<div id = "blackBox">
+                        html += `<div id = "blackBox"> 
                                 <span>
                                 ${todoBox.toDo}
                                 </span>
@@ -52,11 +52,11 @@ function print(){
                     </div>`
                     }
                 });
-
+        
                 todoBox.innerHTML = html;
             }
         });
-
+    
 }
 function remove(index){
        $.ajax({
@@ -68,9 +68,9 @@ function remove(index){
         print();
         }
        })                                              // 삭제가 되면 배열의 상태가 변경되므로 배열의 상태를 다시 출력(화면 업데이트)
-
+       
 }
-function change(index){
+function change(index){ 
     let todoBox = document.querySelector(`#todoBox`);           // 출력할 HTML의 div 부분의 id를 todoBox에 대입
     $.ajax({
         url : "/todo/put",
@@ -85,10 +85,10 @@ function change(index){
             todoList.tState == 0;
         }
         print();
-
+       
         }
-       })
-
+       })              
+        
         // let s=todoList[i].split(",")[0]
         // let e=todoList[i].split(",")[1]
         // if(e=='O'){                                             // 만약 todoList의 i번째 인덱스에서 "," 뒤의 값이 'O'라면
