@@ -26,7 +26,7 @@ public class Step1 {
         // - 강제타입 변환 object -> int
         int content4 = (int)box3.content;
 
-        // 3. 형변환 필요 없음
+        // 3. 형변환 필요 없음 공부
         Box4< String > box4 = new Box4< String >();
         box4.content = "안녕하세요";
         String content5 = box4.content;
