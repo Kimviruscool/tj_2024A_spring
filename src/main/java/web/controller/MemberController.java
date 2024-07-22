@@ -48,7 +48,13 @@ public class MemberController {
     @GetMapping("/my/info")
     public MemberDto mMyInfo( ){ return memberService.mMyInfo(); }
 
-}
+    //중복 검사
+    @GetMapping("/idcheck")
+    public boolean mIDCheck(String id){
+//        return memberService.mIDCheck(MemberDto.builder().id(id).build())}
+        return memberService.mIDCheck(id);
+    }
+    }
 
 
 

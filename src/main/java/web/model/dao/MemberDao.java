@@ -1,5 +1,6 @@
 package web.model.dao;
 
+import example.day12.Member;
 import org.springframework.stereotype.Component;
 import web.model.dto.MemberDto;
 
@@ -54,6 +55,19 @@ public class MemberDao extends Dao {
                         .build();
             }
         }catch (Exception e ){  System.out.println(e);  } return null;
+    }
+
+    //6 아이디중복검사
+    public boolean mIDCheck(String id){
+        System.out.println("MemberDao.mIDCheck");
+        System.out.println();
+        try{
+            String sql = "select id from member where id = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){return true;}
+        }catch (Exception e){System.out.println(e);} return false;
     }
 }
 

@@ -68,6 +68,12 @@ public class MemberService {
         return memberDao.mMyInfo( loginMno );
     }
 
+    //6. 아이디 중복 검사
+    public boolean mIDCheck(String id){
+//        return memberService.mIDCheck(MemberDto.builder().id(id).build())}
+        return memberDao.mIDCheck(id);
+    }
+
 } // class end
 
 

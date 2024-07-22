@@ -16,3 +16,14 @@ create table member(
 
 # [2] 로그인 
 select * from member where id = 'qwe' and pw ='qwe';
+
+insert member(id,pw,name,email,phone) values("kkkkk","1234","김병찬","kk@naver.com","010-1111-1111");
+
+select * from member;
+#[4] 아이디 중복 검사
+select * from member where id = "kkkkk";
+select * from member where id = "KKKKK";
+#만일 대소문자를 구분하는 데이터 검색 할때는 binary(필드)
+#binary(필드) : 문자 가 아닌 바이트를 기준으로 비교,검색 한다.
+select * from member where binary(id) = 'kkkkk'; #소문자 kkkkk
+select * from member where binary(id) = 'KKKKK'; #대문자 KKKKK
