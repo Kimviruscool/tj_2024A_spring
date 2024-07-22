@@ -5,25 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-    <div th:fragment = "header">
+    <div th:fragment="header">
         <ul>
-            <li>
-                <a href="/">
-                    홈
-                </a>
-            </li>
-            <li>
-                <a href="/member/signup">
-                    회원가입
-                </a>
-            </li>
-            <li>
-                <a href="/member/login">
-                    로그인
-                </a>
-            </li>
+            <li> <a href="/"> 홈 </a> </li>
+            <li> <a href="/member/signup"> 회원가입</a> </li>
+            <li> <a href="/member/login"> 로그인 </a></li>
+            <li> <a href="#" onclick="doLogout() "> 로그아웃 </a></li>
+            <li> <a href="/member/mypage"> 내정보 </a> </li>
         </ul>
-    </div>
 
+        <!-- 공통 JS -->
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="/js/header.js"></script>
+
+    </div>
 </body>
 </html>
