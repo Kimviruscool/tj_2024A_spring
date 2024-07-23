@@ -2,10 +2,7 @@ package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import web.model.dto.MemberDto;
 import web.service.MemberService;
 
@@ -17,11 +14,11 @@ public class MemberController {
 
     // POST http://localhost:8080/member/signup?id=qwe&pw=asd&name=강호동&email=qwe@qwe&phone=123-123-123
     @PostMapping("/signup")
-    //public boolean mSignup( String id , String pw , String name , String email , String phone ){
-    public boolean mSignup( MemberDto memberDto ){
+    public boolean mSignup( String id , String pw , String name , String email , String phone ){
+//    public boolean mSignup( MemberDto memberDto ){
         System.out.println("MemberController.mSignup");
-        System.out.println("memberDto = " + memberDto);
-        return memberService.mSignup( memberDto );
+//        System.out.println("memberDto = " + memberDto);
+        return memberService.mSignup( MemberDto.builder().id(id).pw(pw).name(name).email(email).phone(phone).build() );
     }
 
     // http://localhost:8080/member/login?id=qwe&pw=asd
@@ -54,6 +51,19 @@ public class MemberController {
 //        return memberService.mIDCheck(MemberDto.builder().id(id).build())}
         return memberService.mIDCheck(id);
     }
+
+    //회원 탈퇴
+    @DeleteMapping("/leave")
+    public boolean mleave(String pwConfirm){
+        return memberService.mleave(pwConfirm);
+    }
+
+    //회원 수정
+    @PutMapping("/update")
+    public boolean mupdate(String updateName, String nowPw, String updatePw, String updatePhone){
+        return memberService.mupdate(updateName,nowPw,updatePw,updatePhone);
+    }
+
     }
 
 

@@ -69,7 +69,38 @@ public class MemberDao extends Dao {
             if (rs.next()){return true;}
         }catch (Exception e){System.out.println(e);} return false;
     }
-}
+
+    //7 회원정보 삭제
+    public boolean mleave(int loginNo, String pwConfirm){
+        System.out.println("pwConfirm = " + pwConfirm);
+        try{
+            String sql = "delete from member where no = ? and pw = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,loginNo);
+            ps.setString(2,pwConfirm);
+            int count = ps.executeUpdate();
+            if (count == 1 ){return true;}
+        } catch(Exception e){System.out.println(e);}
+        return false;
+    }
+
+    //8 회원정보 수정
+    public boolean mupdate(int loginMno,String updateName, String nowPw, String updatePw, String updatePhone){
+        try{
+            String sql ="update member set pw = ?, name = ?, phone = ? where no = ? and pw = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,updatePw);
+            ps.setString(2,updateName);
+            ps.setString(3,updatePhone);
+            ps.setInt(4,loginMno);
+            ps.setString(5,nowPw);
+            int count = ps.executeUpdate();
+            if(count == 1){return true;}
+            }catch (Exception e){  System.out.println(e);  } return false;
+        }
+
+} //class end
+
 
 
 

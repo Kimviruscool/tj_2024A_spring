@@ -45,7 +45,8 @@ public boolean authCheck(String authCodeInput){
     if(object != null){ //세션 객체의 인증번호가 존재하지 않으면
         String authCode = (String)object; //강제 타입 변환
         //2. 입력받은 인증 번호와 인증 번호 비교
-        if(authCode.equals(authCodeInput)){
+        if(authCode.equals(authCodeInput));
+        {
             return true; //동일하면 true
         }
     }

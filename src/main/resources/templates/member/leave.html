@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="~{ /header.html :: header }"></div>
+탈퇴 페이지
+<div>
+    <h3> 정말 탈퇴 하시겠습니까?</h3>
+    확인비밀번호 : <input class="pwConfirm" type="text"/>
+    <button onclick="doLeave()" type="button">확인</button>
+</div>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/js/member/leave.js"></script>
+<div th:replace="~{ /footer.html :: footer }"></div>
+</body>
+</html>

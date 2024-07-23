@@ -27,4 +27,15 @@ public class ViewController {
     public String mMyPage(){
         return "/member/myinfo.html";
     }
+    // 정보수정 페이지
+    @GetMapping("/member/update")
+    public String update(){
+        return "/member/update.html";
+    }
+    // 탈퇴 페이지
+    @GetMapping("/member/leave")
+    public String leave(){
+        return "/member/leave.html";
+    }
+
 }

@@ -1,7 +1,7 @@
 console.log( 'signup.js' )
 
 /*
-onkeup 누르고나서 땠을때 작동
+onkeyup 누르고나서 땠을때 작동
 */
 
 //2.아이디 유효성검사
@@ -22,12 +22,16 @@ function idcheck(){console.log('idcheck()')
         url : "/member/idcheck", //HTTP URL
         data : {id : id},   //HTTP 전송할 DATTA
         success : (result)=>{ //HTTP 응답받을 DATA
-        if(result){idCheckBox.innerHTML = "사용중인 아이디"}
+        if(result){idCheckBox.innerHTML = "사용중인 아이디"
+        checkArray[0] = false;
+        }
         else {idCheckBox.innerHTML = "사용가능한 아이디 입니다."}
+        checkArray[0] = true;
         }
     })
     idCheckBox.innerHTML = '사용가능한 아이디 입니다.'}
     else{idCheckBox.innerHTML = '영대소문자 와 숫자 조합의 5~30글자 사이 가능합니다.'}
+    checkArray[0] = false;
 }
 
 //3. PW 유효성 검사
@@ -43,14 +47,16 @@ function pwCheck(){console.log("pwCheck()");
         if(pwReg.test(pwConfirm)){  //비밀번호 확인 , 정규표현식 검사
             if(pw == pwConfirm){
             pwCheckBox.innerHTML = "통과";
+            checkArray[1] = true;
             return; }
             else {
             pwCheckBox.innerHTML = "두 비밀번호가 일치하지 않습니다.";
+            checkArray[1] = false;
             return; }
         }
     }
     pwCheckBox.innerHTML = "영대소문자 와 숫자 조합의 5~30 글자 사이로 입력해주세요";
-
+    checkArray[1] = false;
 }
 
 //4. 이름 유효성 검사
@@ -61,8 +67,10 @@ function nameCheck() {
     let nameReg = /^[가-힣]{2,20}$/
     if(nameReg.test(name)){
     nameCheckBox.innerHTML = '사용가능한 이름입니다.';
+    checkArray[2] = true;
     } else {
         nameCheckBox.innerHTML = '한글 2글자 ~ 20글자 사이로 입력해주세요.';
+        checkArray[2] = false;
     }
 }
 
@@ -74,8 +82,10 @@ function phoneCheck(){
     let phoneReg = /^([0-9]{2,3})+[-]+([0-9]{3,4})+[-]+([0-9]{4})$/;
     if(phoneReg.test(phone)){
     phoneCheckBox.innerHTML = '사용가능한 전화번호 입니다.';
+    checkArray[3] = true;
     } else {
     phoneCheckBox.innerHTML = '010-0000-0000 형식으로 입력해주세요.';
+    checkArray[3] = false;
     }
 }
 // * 이메일 인증 버튼
@@ -106,7 +116,7 @@ function doAuth(){ console.log('doAuth()');
     //2. HTML 연결
     authBox.innerHTML=html;
     //3. 타이머생성
-    let timer = 10;// 타이머 시간 초
+    let timer = 180;// 타이머 시간 초
     //4. 인터벌 (JS 라이브러리 ) : 특정 주기에 따라 함수를 실행
         //setInterval (함수정의 , 밀리초)
         //parseInt() : 정수 로 타입 변환 (소수점 자르기)
@@ -125,7 +135,8 @@ function doAuth(){ console.log('doAuth()');
     if(timer < 0 ){
         clearInterval(timerInterval);
         authBox.innerHTML='다시 인증 요청 해주세요';
-        authBtn.disabled = false;
+        authBtn.disabled = false; //인증요청 버튼 비활성화
+        checkArray[4] = false;
     }
     console.log(timer);
     },1000) //SetInterval End
@@ -146,9 +157,11 @@ function doAuthCode(){
         success : (result)=>{
         if(result){
         authBox.innerHTML = '인증성공';
+        checkArray[4] = true;
         clearInterval(timerInterval); //인터벌 종료
         } else {
             alert('인증번호가 일치하지 않습니다.');
+            checkArray[4] = false;
         }
         }
     });
@@ -166,6 +179,7 @@ function doAuthCode(){
 //6. email 유효성 검사.
 function emailCheck(){
     //인증버튼 요청 비활성화
+    checkArray[4] = false;
     authBtn.disabled = true;
     let email = document.querySelector('#email').value;
     let emailCheckBox = document.querySelector('.emailCheckBox');
@@ -176,18 +190,33 @@ function emailCheck(){
     let emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+$/
     if(emailReg.test(email)){
     emailCheckBox.innerHTML = "사용가능한 이메일 입니다.";
+
     //이메일 중복검사
     //이메일 인증검사
     //1. 인증버튼 요청 활성화
         authBtn.disabled = false;
     }else {
     emailCheckBox.innerHTML = "000000@00000.000 형식으로 입력해주세요.";
+
     }
 }
 
 
+//***** 현재 유효성 검사 체크 현황 *************
+let checkArray = [false,false,false,false,false]
+               //아이디,비밀번호,이름,전화번호,이메일
+
 // 1. 회원가입
 function doSignup(){ console.log( 'doSignup()' )
+    //유효성 검사 체크
+    for(let i = 0 ; i<checkArray.length; i++){
+        if(!checkArray[i]){
+        alert('유효하지 않은 정보가 존재합니다.');
+        return;
+        }
+    }
+
+
     // 1. 입력값 가져오기
     let id = document.querySelector("#id").value;
     let pw = document.querySelector("#pw").value;

@@ -74,6 +74,34 @@ public class MemberService {
         return memberDao.mIDCheck(id);
     }
 
+    //7. 회원 탈퇴 //mLoginCheck 사용해도 가능
+    public boolean mleave(String pwConfirm){
+        //1. 현재 탈퇴하는 회원의 로그인된 번호
+        Object object = request.getSession().getAttribute("loginDto");
+        //2. 로그인이 안된 상태이면 false
+        if(object == null) return false;
+        //3. 로그인 세션객체내 로그인정보를 타입 변환
+        MemberDto loginDto = (MemberDto)object;
+        //4. 로그인정보에서 회원 정보 추출
+        int loginNo = loginDto.getNo();
+        //5. Dao에게 전달
+        boolean result = memberDao.mleave(loginNo, pwConfirm);
+        //6. 만약 탈퇴 성공시 로그아웃
+        if(result){mLogout();}
+        //7. result 값 반환
+        return result;
+    }
+
+    //8. 회원 수정
+    public boolean mupdate(String updateName, String nowPw, String updatePw, String updatePhone){
+        Object object = request.getSession().getAttribute("loginDto");
+        if (object == null) return false;
+        MemberDto loginDto = (MemberDto)object;
+        int loginMno = loginDto.getNo();
+        //2. DAO전달
+        return memberDao.mupdate(loginMno, updateName, nowPw,updatePw,updatePhone);
+    }
+
 } // class end
 
 

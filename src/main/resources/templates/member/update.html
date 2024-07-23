@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="~{ /header.html :: header }"></div>
+수정 페이지
+
+<div>
+    <h3> 회원 정보 수정 </h3>
+    이름 수정 : <input class="nameupdate" type="text"/> <br/>
+    기존비밀번호 : <input class="nowpw" type="text"/> <br/>
+    비밀번호 수정 : <input class="pwupdate" type="text"/> <br/>
+    전화번호 수정 : <input class="numupdate" type="text"/> <br/>
+    <button onclick="doUpdate()" type="button"> 변경 </button> <br/>
+</div>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/js/member/update.js"></script>
+
+<div th:replace="~{ /footer.html :: footer }"></div>
+</body>
+</html>
