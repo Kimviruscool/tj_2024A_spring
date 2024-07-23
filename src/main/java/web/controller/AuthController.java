@@ -15,8 +15,8 @@ public class AuthController {
 
     //1. 인증 번호 요청
     @GetMapping("/code")
-    public boolean authCode(){
-        return authService.authCode();
+    public boolean authCode(String email){
+        return authService.authCode(email);
     }
 
     //2. 입력받은 값과 인증 번호를 인증/비교

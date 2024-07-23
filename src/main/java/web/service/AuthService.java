@@ -1,8 +1,11 @@
 package web.service;
 
 
+import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -12,14 +15,13 @@ public class AuthService {
 
     @Autowired HttpServletRequest request; //HTTP 요청 객체
 
-public boolean authCode(){
+public boolean authCode(String email){
     //1. 인증코드가 문자인 이유 : 앞자리에 0이 들어갈수도 있으니까.
-
+    try {
     String authCode = "";
 
     //2. 난수 생성
     Random random = new Random();
-    try {
         //random.nextInt(); //int type 난수 생성
         for (int i = 0; i < 6; i++) {
             authCode += random.nextInt(10);
@@ -32,6 +34,7 @@ public boolean authCode(){
         //2. 서버 세션 객체 의 생명 주기(세션이 유지되는 시간 ) //초 기준
         request.getSession().setMaxInactiveInterval(10); // 해당 초 만큼의 세션 생명주기 설정
         //3. 이메일 전송
+        emailsned(email, "000 홈페이지의 회원가입 인증 코드 요청", "인증코드 : " + authCode);
         return true;
     } catch (Exception e) {System.out.println(e);} return false;
 }
@@ -49,4 +52,29 @@ public boolean authCheck(String authCodeInput){
     return false;
 }
 
+@Autowired JavaMailSender javaMailSender;
+
+//3. 이메일 전송 함수 , 매개변수 : 받는사람의 이메일  , 메일 제목 , 메일 내용
+public void emailsned(String toEmail , String subject , String content) {
+    try {
+        //1. 메일 내용물들을 포맷/형식 을 맞추기 위해 MIME
+        //1. Mime 객체 생성
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        //2. 메일 내용 구성
+        //new MimeMessageHelper(mime객체 , 첨부파일여부 , 인코딩타입(한글사용가능여부) )
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+        //3. 메일 보내는 사람
+        mimeMessageHelper.setFrom("sinsa9122@naver.com");
+        //4. 받는 사람 메일
+        mimeMessageHelper.setTo(toEmail);
+        //5. 메일 제목
+        mimeMessageHelper.setSubject(subject);
+        //6. 메일 내용
+        mimeMessageHelper.setText(content);
+        //7. 메일 전송
+        javaMailSender.send(mimeMessage); //mime 객체를 보내기
+
+    } catch (Exception e) {System.out.println(e);
+    }
 }
+} //class end

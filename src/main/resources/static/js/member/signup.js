@@ -90,10 +90,11 @@ function doAuth(){ console.log('doAuth()');
         async : false, //동기식
         method : "get",
         url : "/auth/code",
-        success : (result) => {
-            if(result){alert('메일로 인증코드를 전송 했습니다.');}
+        data : {email : document.querySelector('#email').value},
+        success : (result)=>{
+        if(result){ alert('메일로 인증코드를 전송 했습니다.'); }
         }
-    });
+    })
 
 
     authBtn.disable = true; //인증 버튼 비활성화 상태
