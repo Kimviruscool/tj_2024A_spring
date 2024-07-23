@@ -78,22 +78,112 @@ function phoneCheck(){
     phoneCheckBox.innerHTML = '010-0000-0000 형식으로 입력해주세요.';
     }
 }
+// * 이메일 인증 버튼
+let authBtn = document.querySelector('.authBtn'); //이메일 인증
+let authBox = document.querySelector('.authBox'); //인증구역
+let timerInterval = null; //타이머 인터벌 객체를 저장하는 변수 전역으로 사용
+
+//7. 이메일 인증
+function doAuth(){ console.log('doAuth()');
+//================================= AJAX
+    $.ajax({
+        async : false, //동기식
+        method : "get",
+        url : "/auth/code",
+        success : (result) => {
+            if(result){alert('메일로 인증코드를 전송 했습니다.');}
+        }
+    });
+
+
+    authBtn.disable = true; //인증 버튼 비활성화 상태
+    //1. 인증 번호 입력 구역 구성
+    let html = `<span class="timerBox"> 00:00  </span>
+                <input type="text" class="authCodeInput"/>
+                <button type="button" class="authCodeBtn" onclick="doAuthCode()">인증</button>`;
+
+    //2. HTML 연결
+    authBox.innerHTML=html;
+    //3. 타이머생성
+    let timer = 10;// 타이머 시간 초
+    //4. 인터벌 (JS 라이브러리 ) : 특정 주기에 따라 함수를 실행
+        //setInterval (함수정의 , 밀리초)
+        //parseInt() : 정수 로 타입 변환 (소수점 자르기)
+    timerInterval = setInterval(()=>{
+    //1. 분 , 초 계산
+    let m = parseInt(timer/60); //분
+    let s = parseInt(timer%60); //초
+    //2. 두자릿 수 표현
+    m = m < 10 ? "0"+m : m; //만약 분이 10보다 작으면 "0" 붙이기
+    s = s < 10 ? "0"+s : s;
+    //3. 분 , 초 출력
+    document.querySelector('.timerBox').innerHTML = `${m}:${s}`
+    //4. 1초 차감
+    timer--;
+    //5. 만약에 timer 가 -1이면 0보다 작으면
+    if(timer < 0 ){
+        clearInterval(timerInterval);
+        authBox.innerHTML='다시 이니증 요청 해주세요';
+        authBtn.disabled = false;
+    }
+    console.log(timer);
+    },1000) //SetInterval End
+
+} //doauth method end
+
+//8. 인증코드 인증함수
+function doAuthCode(){
+    //1. 입력한 인증 번호 가져오기
+    let authCodeInput = document.querySelector('.authCodeInput').value; //입력받은 값 가져오기
+    // * 임이의 인증번호 (JS에서 인증번호를 관리하지 않는 이유 : JS는 클라이언트로 부터 오픈코드 이기 때문에)
+    //========== AJAX
+    $.ajax({
+        async : false,
+        method : "post",
+        url : "/auth/check",
+        data : {authCodeInput, authCodeInput},
+        success : (result)=>{
+        if(result){
+        authBox.innerHTML = '인증성공';
+        clearInterval(timerInterval); //인터벌 종료
+        } else {
+            alert('인증번호가 일치하지 않습니다.');
+        }
+        }
+    });
+//    let authCode = 1234
+//    //2. 만약에 입력한 값이 인증번호와 동일하면
+//    if(authCode == authCodeInput){
+//        authBox.innerHTML = '인증성공';
+//        clearInterval(timerInterval); //인터벌 종료
+//    } else {
+//        alert('인증번호가 일치하지 않습니다.');
+//    }
+}
+
 
 //6. email 유효성 검사.
 function emailCheck(){
+    //인증버튼 요청 비활성화
+    authBtn.disabled = true;
     let email = document.querySelector('#email').value;
     let emailCheckBox = document.querySelector('.emailCheckBox');
     //정규표현식
     //ex) kgs2072@ : ([a-zA-z_-])+@ @앞에 패턴 1개이상 존재한다.
     //ex) naver.com : [a-zA-Z0-9_-]
     // . 정규표현식에 사용되는 패턴 vs \. 문자(점)
-    let emailReg = /^[a-zA-z_-]+@[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+$/
+    let emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+$/
     if(emailReg.test(email)){
     emailCheckBox.innerHTML = "사용가능한 이메일 입니다.";
+    //이메일 중복검사
+    //이메일 인증검사
+    //1. 인증버튼 요청 활성화
+        authBtn.disabled = false;
     }else {
     emailCheckBox.innerHTML = "000000@00000.000 형식으로 입력해주세요.";
     }
 }
+
 
 // 1. 회원가입
 function doSignup(){ console.log( 'doSignup()' )
