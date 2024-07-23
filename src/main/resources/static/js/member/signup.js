@@ -124,7 +124,7 @@ function doAuth(){ console.log('doAuth()');
     //5. 만약에 timer 가 -1이면 0보다 작으면
     if(timer < 0 ){
         clearInterval(timerInterval);
-        authBox.innerHTML='다시 이니증 요청 해주세요';
+        authBox.innerHTML='다시 인증 요청 해주세요';
         authBtn.disabled = false;
     }
     console.log(timer);
