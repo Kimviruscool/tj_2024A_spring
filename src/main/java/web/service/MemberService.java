@@ -4,8 +4,12 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import web.model.dao.MemberDao;
 import web.model.dto.MemberDto;
+
+import java.util.Map;
 
 @Service
 public class MemberService {
@@ -92,14 +96,15 @@ public class MemberService {
         return result;
     }
 
-    //8. 회원 수정
-    public boolean mupdate(String updateName, String nowPw, String updatePw, String updatePhone){
-        Object object = request.getSession().getAttribute("loginDto");
-        if (object == null) return false;
-        MemberDto loginDto = (MemberDto)object;
-        int loginMno = loginDto.getNo();
-        //2. DAO전달
-        return memberDao.mupdate(loginMno, updateName, nowPw,updatePw,updatePhone);
+//    //8. 회원 수정
+    public boolean mupdate(@RequestBody Map<String,String> map){
+        //1. 현재 로그인 된 회원번호 추출
+        MemberDto loginDto = mLoginCheck();
+        if(loginDto == null) return false;
+        int loginNo = loginDto.getNo();
+        //2. 로그인된 회원번호를 map 엔트리 추가
+        map.put("no", String.valueOf(loginNo) );
+        return memberDao.mupdate(map);
     }
 
 } // class end

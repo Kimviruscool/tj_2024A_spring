@@ -2,10 +2,12 @@ package web.model.dao;
 
 import example.day12.Member;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 import web.model.dto.MemberDto;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
 
 @Component
 public class MemberDao extends Dao {
@@ -85,15 +87,15 @@ public class MemberDao extends Dao {
     }
 
     //8 회원정보 수정
-    public boolean mupdate(int loginMno,String updateName, String nowPw, String updatePw, String updatePhone){
+    public boolean mupdate(@RequestBody Map<String,String> map){
         try{
             String sql ="update member set pw = ?, name = ?, phone = ? where no = ? and pw = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1,updatePw);
-            ps.setString(2,updateName);
-            ps.setString(3,updatePhone);
-            ps.setInt(4,loginMno);
-            ps.setString(5,nowPw);
+            ps.setString(1,map.get("pwupdate"));
+            ps.setString(2,map.get("nameupdate"));
+            ps.setString(3,map.get("numupdate"));
+            ps.setString(4,map.get("no"));
+            ps.setString(5,map.get("nowpw"));
             int count = ps.executeUpdate();
             if(count == 1){return true;}
             }catch (Exception e){  System.out.println(e);  } return false;

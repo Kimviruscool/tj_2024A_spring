@@ -27,3 +27,12 @@ select * from member where id = "KKKKK";
 #binary(필드) : 문자 가 아닌 바이트를 기준으로 비교,검색 한다.
 select * from member where binary(id) = 'kkkkk'; #소문자 kkkkk
 select * from member where binary(id) = 'KKKKK'; #대문자 KKKKK
+#JDBC : select  * from member where binary(id) = ?;
+
+#5 탈퇴
+delete from member where no = 9 and pw = 'qwe123'; #패스워드는 중복이 가능하므로 식별 역할이 불가능하다.
+#JDBC : delete from member where no = ? and pw = ?;
+
+#6 수정
+update member set pw = 'qwe1234', name = '리리리', phone = '010-0101-1010' where no = 13 and pw = 'qwe123';
+#JDBC : update member set pw = ?, name = ?, phone = ? where no = ? and pw = ?;
