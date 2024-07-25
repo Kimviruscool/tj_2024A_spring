@@ -38,4 +38,30 @@ public class ViewController {
         return "/member/leave.html";
     }
 
+    //========= 게시물 ================================================
+    //전체 게시물
+    @GetMapping("/board/board")
+    public String board(){
+        return "/board/board.html";
+    }
+
+    // 게시물 쓰기
+    @GetMapping("/board/write")
+    public String bwrite(){
+        return "/board/write.html";
+    }
+
+    //게시물 수정
+    @GetMapping("/board/update")
+    public String bupdate(){
+        return "/board/update.html";
+    }
+
+    //게시물 상세 페이지
+    @GetMapping("/board/info")
+    public String binfo(){
+        return "/board/info.html";
+    }
+
+
 }
