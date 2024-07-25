@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import web.model.dto.BoardDto;
 import web.service.BoardService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,5 +37,19 @@ public class BoardController {
         System.out.println("boardDto = " + boardDto);
 
         return boardService.bWrite(boardDto);
+    }
+
+    //글 전체 함수 호출
+    @GetMapping("/all")
+    public ArrayList<BoardDto> ball(){
+        System.out.println("BoardController.ball");
+        return boardService.ball();
+    }
+
+    //글 상세 호출
+    @GetMapping("/boardinfo")
+    public BoardDto info(int bno){
+
+        return boardService.info(bno);
     }
 }

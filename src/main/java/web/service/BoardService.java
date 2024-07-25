@@ -8,6 +8,7 @@ import web.model.dao.BoardDao;
 import web.model.dto.BoardDto;
 import web.model.dto.MemberDto;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -59,5 +60,17 @@ public class BoardService {
         //--------------------- DB처리
 
         return boardDao.bWrite(boardDto);
+    }
+    
+    //글 전체 호출함수
+    public ArrayList<BoardDto> ball(){
+        System.out.println("BoardService.ball");
+
+        return boardDao.ball();
+    }
+
+    //글 상세 호출 함수
+    public BoardDto info(int bno){
+        return boardDao.info(bno);
     }
 }

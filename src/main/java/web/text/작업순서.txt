@@ -180,7 +180,7 @@
 글 수정 페이지 요청	    HTML , 링크연결              viewController 매핑                                확인,수정
 카테고리 호출             쓰기 , 수정 JS(AJAX)        BoardController , boardservice , boardDao           확인,수정
 글쓰기 처리              쓰기 JS(AJAX)               BoardController , boardservice , boardDao             확인,수정
-글 전체 호출 처리
+글 전체 호출 처리        
 글 상세 호출 처리
 글 수정 처리
 글 삭제 처리

@@ -61,4 +61,38 @@ public class BoardDao extends Dao{
         } catch (Exception e){System.out.println(e);}
         return false;
     }
-}
+
+    //글 전체 호출함수
+    public ArrayList<BoardDto> ball(){
+        ArrayList<BoardDto> list = new ArrayList<>();
+        try {
+            String sql = "select * from board join member";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+
+                list.add(BoardDto.builder().bno(rs.getLong("bno"))
+                        .btitle(rs.getString("btitle")).id(rs.getString("id"))
+                        .bdate(rs.getString("bdate")).bview(rs.getLong("bview")).build());
+
+            }
+        } catch (Exception e) {System.out.println(e);}
+        return list;
+    }
+
+    //글 상세 호출 함수
+    public BoardDto info(int bno){
+        try{
+            String sql = "select * from board join member join bcategory on board.bcno = bcategory.bcno where bno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,bno);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                return BoardDto.builder().bcname(rs.getString("bcname")).id(rs.getString("id")).bview(rs.getLong("bview")).
+                        bdate(rs.getString("bdate")).btitle(rs.getString("btitle"))
+                        .bcontent(rs.getString("bcontent")).bno(rs.getLong("bno")).build();
+            }
+        } catch (Exception e){System.out.println(e);} return null;
+    } //함수 종료
+
+} //DAO end
