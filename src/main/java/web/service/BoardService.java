@@ -3,10 +3,12 @@ package web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 import web.model.dao.BoardDao;
 import web.model.dto.BoardDto;
 import web.model.dto.MemberDto;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -24,8 +26,13 @@ public class BoardService {
     }
 
     @Autowired MemberService memberService;
+    @Autowired FileService fileService;
+
     //게시물 작성 처리
     public boolean bWrite(BoardDto boardDto){
+        //파일처리
+        fileService.fileUpload(boardDto.getBfile());
+
         //작성을 요청한 회원의 로그인회원번호 호출
         //1. 로그인 세션에서 값 호출
         Object object = memberService.mLoginCheck();
@@ -36,7 +43,16 @@ public class BoardService {
         int loginNo = memberDto.getNo();
         //4. BoardDto 에 담아주기
         boardDto.setNo(loginNo);
-
+//================================================================
+        //- 파일처리 확인 print
+//        MultipartFile multipartFile = boardDto.getBfile();
+//        System.out.println("multipartFile = " + multipartFile);
+////        byte[] bytes = multipartFile.getBytes();
+//        System.out.println(multipartFile.getContentType()); //파일 확장자
+//        System.out.println(multipartFile.getName()); //속성명
+//        System.out.println(multipartFile.getSize()); //파일의 바이트 사이즈(용량)
+//        System.out.println(multipartFile.isEmpty()); //파일이 없으면 true 있으면 false
+//========================================================================================
         return boardDao.bWrite(boardDto);
     }
 }

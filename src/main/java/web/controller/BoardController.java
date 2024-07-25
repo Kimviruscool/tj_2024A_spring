@@ -30,7 +30,7 @@ public class BoardController {
     //  "btitle" : "안녕" ,
     //  "bcontent" : "하하하"
     //}
-    public boolean bWrite(@RequestBody BoardDto boardDto){
+    public boolean bWrite(BoardDto boardDto){
         //문제 확인용 print
         System.out.println("BoardController.bWrite");
         System.out.println("boardDto = " + boardDto);
