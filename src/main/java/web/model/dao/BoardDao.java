@@ -1,6 +1,8 @@
 package web.model.dao;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
+import web.model.dto.BoardDto;
 
 import java.lang.reflect.Executable;
 import java.sql.PreparedStatement;
@@ -40,4 +42,22 @@ public class BoardDao extends Dao{
         return list;
     }
 
+    //게시물 작성 처리
+    public boolean bWrite(BoardDto boardDto){
+        //확인용 print
+        System.out.println("BoardDao.bWrite");
+        System.out.println("boardDto = " + boardDto);
+        try{
+            String sql = "insert into board(bcno,btitle,bcontent,no)values(?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setLong(1,boardDto.getBcno());
+            ps.setString(2, boardDto.getBtitle());
+            ps.setString(3,boardDto.getBcontent());
+            ps.setLong(4, boardDto.getNo());
+            int count = ps.executeUpdate();
+            if (count == 1) return true;
+
+        } catch (Exception e){System.out.println(e);}
+        return false;
+    }
 }
