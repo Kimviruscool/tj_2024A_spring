@@ -30,9 +30,6 @@ public class BoardService {
 
     //게시물 작성 처리
     public boolean bWrite(BoardDto boardDto){
-        //파일처리
-        fileService.fileUpload(boardDto.getBfile());
-
         //작성을 요청한 회원의 로그인회원번호 호출
         //1. 로그인 세션에서 값 호출
         Object object = memberService.mLoginCheck();
@@ -53,6 +50,14 @@ public class BoardService {
 //        System.out.println(multipartFile.getSize()); //파일의 바이트 사이즈(용량)
 //        System.out.println(multipartFile.isEmpty()); //파일이 없으면 true 있으면 false
 //========================================================================================
+        //파일 업로드
+        String uploadFileName = fileService.fileUpload(boardDto.getUploadFile());
+        //1. 만약에 업로드가 실패 했으면 글쓰기 실패
+        if(uploadFileName == null) return false;
+        //2. BoardDto 에 업로드된 파일명 담아주기
+        boardDto.setBfile(uploadFileName);
+        //--------------------- DB처리
+
         return boardDao.bWrite(boardDto);
     }
 }

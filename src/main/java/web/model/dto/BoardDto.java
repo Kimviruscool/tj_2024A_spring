@@ -15,8 +15,14 @@ public class BoardDto {
     private long bno ;          // 번호
     private String btitle;      // 제목
     private String bcontent;        // 내용
+
     //Html의 input type이 file일때 바이트로 매핑 할때 사용되는
-    private MultipartFile bfile;       // 첨부파일
+    //[1]upload 시 바이트를 저장하고있는 파일 필드
+    private MultipartFile uploadFile;       // 첨부파일
+
+    //[2] DB에 저장하고 출력할 업로드된 파일명 필드
+    private String bfile;
+
     private long bview ;        // 조회수
     private String bdate;       // 작성일
     // 카테고리

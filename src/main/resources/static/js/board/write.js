@@ -73,7 +73,13 @@ function doBoardWrite(){
         url : "/board/write",
         data : boardWriteFormData,
         contentType : false, processData : false,
-        success : r =>{console.log(r); },
-        error : e=>{console.log(e); }
+        success : (r)=>{console.log(r);
+                    if(r){alert('글쓰기 성공')
+                    location.href="/board/board";
+                    }else{
+                        alert('글쓰기실패');
+                    }
+                },
+                error : (e)=>{console.log(e);}
     })
 }

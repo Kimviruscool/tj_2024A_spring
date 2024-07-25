@@ -37,7 +37,8 @@ public class FileService {
         //일반 예외 무조건 발생
         try {
             multipartFile.transferTo(file);
-        } catch (Exception e){System.out.println(e);} return fileName;
+            return fileName;
+        } catch (Exception e){System.out.println(e); }return null;
 
     }
     
