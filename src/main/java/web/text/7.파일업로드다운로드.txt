@@ -37,3 +37,18 @@
 *. 자바에서 대용량 바이트의 타입
     - MultipartFile 인터페이스 : Spring 제공하는 라이브러리
         - 주로 대용량 바이트 파일을 매핑/조작 할때 사용되는 인터페이스
+
+        5. MultipartFile
+            1. 파일 이름 정의, 중복 배제한 식별 가능 파일명 정의
+                String uuid = UUID.randomUUID().toString();
+                - UUID 조합
+                String fileName = multipartFile.getOriginalFilename();
+                FileName = uuid + "_" + fileName.replaceAll("_","-");
+            2. 업로드 할 경로
+                1. 개발자 폴더 : "C:\\Users\\tj-bu-703-021\\Desktop\\Spring\\src\\main\\resources\\static\\upload"
+                2. 배포된 서버 폴더 : "C:\\Users\\tj-bu-703-021\\Desktop\\Spring\\build\\resources\\static\\upload"
+            3. 업로드 , 바이트로 된 데이터를 해당 경로로 파일 생성
+
+            .
+
+                .transferTo(file);

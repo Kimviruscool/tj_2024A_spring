@@ -91,7 +91,7 @@ public class BoardDao extends Dao{
             if (rs.next()){
                 return BoardDto.builder().bcname(rs.getString("bcname")).id(rs.getString("id")).bview(rs.getLong("bview")).
                         bdate(rs.getString("bdate")).btitle(rs.getString("btitle"))
-                        .bcontent(rs.getString("bcontent")).bno(rs.getLong("bno")).build();
+                        .bcontent(rs.getString("bcontent")).bno(rs.getLong("bno")).bfile(rs.getString("bfile")).build();
             }
         } catch (Exception e){System.out.println(e);} return null;
     } //함수 종료

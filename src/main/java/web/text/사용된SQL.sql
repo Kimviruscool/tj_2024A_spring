@@ -49,6 +49,7 @@ select * from member where id = 'qwe' and pw ='qwe';
 
 insert member(id,pw,name,email,phone) values("kkkkk","1234","김병찬","kk@naver.com","010-1111-1111");
 
+
 select * from member;
 #[4] 아이디 중복 검사
 select * from member where id = "kkkkk";
@@ -65,4 +66,22 @@ delete from member where no = 9 and pw = 'qwe123'; #패스워드는 중복이 �
 
 #6 수정
 update member set pw = 'qwe1234', name = '리리리', phone = '010-0101-1010' where no = 13 and pw = 'qwe123';
-#JDBC : update member set pw = ?, name = ?, phone = ? where no = ? and pw = ?;
+#JDBC : update member set pw = ?, name = ?, phone = ? where no = ? and pw = ?;	
+
+#7 카테고리 전체 출력
+select * from bcategory;
+
+#8 글쓰기 bcno[fk]카테고리, no[fk]회원
+insert into board(bcno,btitle,bcontent,no)values(1,"안녕","아무거나",1);
+#1번 회원이 1번카테고리에 안녕제목의 아무거나글을 작성
+# JDBC : insert into board(bcno,btitle,bcontent,no)values(?,?,?,?);
+
+#9 게시판 출력
+select * from board join member;
+select *from board;
+
+#10 상세 게시물 출력
+select * from board join member join bcategory on board.bcno = bcategory.bcno where bno = 6;
+select distinct * from board join member join bcategory;
+#JDBC : select * from board join member join bcategory on board.bcno = bcategory.bcno where bno = ?;
+#inner join
