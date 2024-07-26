@@ -71,6 +71,7 @@ public class BoardService {
 
     //글 상세 호출 함수
     public BoardDto info(int bno){
+        System.out.println("BoardService.info");
         return boardDao.info(bno);
     }
 }

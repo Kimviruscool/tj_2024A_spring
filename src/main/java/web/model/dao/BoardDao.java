@@ -82,6 +82,7 @@ public class BoardDao extends Dao{
 
     //글 상세 호출 함수
     public BoardDto info(int bno){
+        System.out.println("BoardDao.info");
         try{
             String sql = "select * from board join member join bcategory on board.bcno = bcategory.bcno where bno = ?";
             PreparedStatement ps = conn.prepareStatement(sql);

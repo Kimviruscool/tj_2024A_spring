@@ -13,7 +13,7 @@ $.ajax({
     let html = '';
 
     r.forEach((c)=>{
-    html += `<tr>  <th> ${c.bno} </th> <th> <a href="/board/boardinfo?bno=${c.bno}">${c.btitle}</a> </th> <th> ${c.id} </th> <th> ${c.bdate} </th> <th> ${c.bview} </th>  </tr>`;
+    html += `<tr>  <th> ${c.bno} </th> <th> <a href="/board/info?bno=${c.bno}">${c.btitle}</a> </th> <th> ${c.id} </th> <th> ${c.bdate} </th> <th> ${c.bview} </th>  </tr>`;
     })
     //출력
     boardBox.innerHTML = html;

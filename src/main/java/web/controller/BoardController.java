@@ -49,7 +49,7 @@ public class BoardController {
     //글 상세 호출
     @GetMapping("/boardinfo")
     public BoardDto info(int bno){
-
+        System.out.println("BoardController.info");
         return boardService.info(bno);
     }
 }
