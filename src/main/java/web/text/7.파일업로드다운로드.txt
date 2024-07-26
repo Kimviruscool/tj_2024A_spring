@@ -1,5 +1,8 @@
 - 스트림 : 데이터가 다니는 통로의 흐름
     - 주로 자바 외 장치와 데이터 주고 받을때 사용  : 키보드 , 파일처리 , JDBC , 네트워크
+- 버퍼 : 특정 위치로 이동하는 동안 일시적으로 데이터를 보관하는 통로
+- INPUT : 자바 안으로 들어는 의미
+- OUTPUT : 자바 밖으로 나가는 의미
 
 - HTML 에서 첨부파일 입력받을때
     1. HTML : <input type="file" class="bfile" />
@@ -48,7 +51,40 @@
                 1. 개발자 폴더 : "C:\\Users\\tj-bu-703-021\\Desktop\\Spring\\src\\main\\resources\\static\\upload"
                 2. 배포된 서버 폴더 : "C:\\Users\\tj-bu-703-021\\Desktop\\Spring\\build\\resources\\static\\upload"
             3. 업로드 , 바이트로 된 데이터를 해당 경로로 파일 생성
-
-            .
-
                 .transferTo(file);
+
+2. 다운로드 구현 방법
+------------------- 다운로드  할 파일 읽어오기 ----------------- 대상 : 파일
+    1. 다운로드 파일의 경로 설정
+        String DownLoadPath = uploadPath + filename;
+        File file = new (DownLoadPath(파일경로))
+    2. 해당 파일이 존재했을때 바이트로 읽기
+        [1] 입력 스트림
+            FileInputStream fin = new FileInputStream(파일경로);
+        [2] 읽어온 바이트를 저장할 배열 생성
+            long fileSize = file.length();
+            byte[] bytes = new byte[(int)fileSize]; //강제 타입변환
+        [3] 파일 입력 스트림 객체를 이용한 바이트 읽기
+            fin.read(bytes);
+        [4] 스트림 객체(수동) 제거, JVM 대신 해주지만, 안전하게 종료하는 방법
+            fin.close();
+-----------------읽어온 바이트를 내보내기 ------------------------- 대상 : HTTP : 웹/앱
+1. 배열에 저장된 바이트를 HTTP로 응답하기
+    [1] HTTP 응답 객체
+        @Autowired HttpServletResponse response;
+    [2] HTTP 응답 스트림 호출
+        servletOutputStream fout = response.getOutputStream();
+    [3] 출력할 배열을 내보내기
+        fout.write(bytes);
+    [4] 스트림 객체 제거
+        fout.close();
+
+4. 브라우저의 다운로드 형식을 HTTP header(응답정보들이 들어있는 곳) 보내주기
+
+
+-File 클래스 : 해당 경로의 파일을 객체화 해서 다양한 메소드 제공
+    1. new file(파일 경로); : 해당 경로의 파일 객체 생성
+    2. exists() : 해당 경로의 파일이 존재하면 true 해당 경로의 파일이 없으면 false
+    3. length() : 해당 경로의 파일이 존재하면 파일의 용량을 바이트 길이 단위로 반환 [파일 용량 찾기/알기]
+    등등
+

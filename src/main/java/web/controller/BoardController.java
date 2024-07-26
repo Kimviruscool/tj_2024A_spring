@@ -52,4 +52,8 @@ public class BoardController {
         System.out.println("BoardController.info");
         return boardService.info(bno);
     }
+
+    //글 수정
+
+    //글 삭제
 }

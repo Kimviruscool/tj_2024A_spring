@@ -1,13 +1,20 @@
 package web.service;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.io.*;
+import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Service
 public class FileService {
+    //[0] 파일이 저장된 위치 경로 정의 필드
+    String uploadPath = "C:\\Users\\tj-bu-703-021\\Desktop\\Spring\\src\\main\\resources\\static\\upload\\";
 
     //[1] 파일 업로드 : 매개변수로 파일의바이트가 저장된 MultipartFile 인터페이스
     //업로드 된 파일명 반환
@@ -28,7 +35,6 @@ public class FileService {
 
         System.out.println("fileName = " + fileName);
         //2. 첨부파일을 저장/복사/이동할 저장할 경로 만들기
-        String uploadPath = "C:\\Users\\tj-bu-703-021\\Desktop\\Spring\\src\\main\\resources\\static\\upload\\";
         //3. 저장할 경로 와 파일명 합치기
         String filePath = uploadPath+fileName;
         //4. 해당 경로로 설정한 file 객체 , transferTo (file객체)
@@ -41,7 +47,59 @@ public class FileService {
         } catch (Exception e){System.out.println(e); }return null;
 
     }
-    
+
+    @Autowired HttpServletRequest request; //HTTP요청 객체 , HTTP로 요청 들어온 정보 와 기능이 포함된 객체
+    @Autowired HttpServletResponse response; //HTTP 응답 객체, HTTP로 응답 할때 정보와 기능이 포함된 객체
+
     //[2] 파일 다운로드
-    
+    public void fileDownload(String filename){
+
+        //1. 다운로드 할 경로 설정 uploadPath
+            //1. 업로드 경로 와 다운로드 할 파일명 조합
+        String downLoadPath = uploadPath+filename;
+        //- File클래스는 file에 관련된 다양한 메소드 제공 ,
+            //exists() : 해당 경로의 파일이 존재하면 true 없으면 false
+            //-length() : 해당 경로의 파일이 존재하면 파일의 용량을 바이트 개수로 반환 (용량찾기)
+            
+        File file = new File(downLoadPath);
+        if(!file.exists()){return;} //파일이 존재하지 않으면 빠져나감
+
+        //2. 해당 다운로드 할 파일을 서버(자바)의 바이트형식으로 읽어 들이기
+            //- 스트림 : 자바 외부 와 통신시 바이트가 다니는 통로 
+            //- InputStream : 읽어드리는 통로 , OutputStream : 내보내는 통로
+            //- Buffer 버퍼 : 스트림내 통로에서 이동하는 동안 일시적으로 데이터를 보관하는 메모리(스트림 에서도 사용)
+        try {
+            //===================================== 파일을 바이트 배열로 불러오기 =========================
+            //2-1 파일 입력스트림 객채 생성
+            BufferedInputStream fin = new BufferedInputStream(new FileInputStream(downLoadPath));
+            //2-2 파일의 용량만큼 배열 선언
+                //파일의 용량
+            long fileSize = file.length();
+                //파일의 용량만큼 배열의 길이 선언
+            byte[] bytes = new byte[(int)fileSize];
+                //.read(배열명) : 해당 파일을 읽어서 바이트들을 해당 배열에 하나씩 대입한다.
+            fin.read(bytes); //경로에 해당 하는 파일을 바이트로 가져오기
+            //- 버퍼닫기
+            fin.close();
+            System.out.println(" Arrays.toString(bytes) = " + Arrays.toString(bytes));
+            //================================== 읽어온 바이트배여을 HTTP 바이트 형식으로 응답하기============
+        //[3] HTTP 스트림으로 응답하기
+            //3-1 BufferedOutputStream fout = new BufferedOutputStream(출력할 대상의 스트림객체);
+            BufferedOutputStream fout = new BufferedOutputStream(response.getOutputStream());
+
+        //--- HTTP 응답의 헤더 속성 추가 (.setHeader(key, value))
+            //content-disposition : 브라우저가 제공하는 다운로드 형식
+            //attachment;filename="다운로드에 표시될 파일명"
+                //URLEncoder.encode() : URL 경로상의 한글을 인코딩
+                //filename.split("_")[1] : _ 기준으로 분해해서 UUID 를 제외한 실제 파일명만 추출
+
+            response.setHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(filename.split("_")[1] , "UTF-8"));
+
+            //3-2 바이트 배열 내보내기/출력/쓰기 .write
+            fout.write(bytes);
+            //- 버퍼닫기
+            fout.close();
+            
+        } catch (Exception e) {System.out.println(e);}
+        }
 }
