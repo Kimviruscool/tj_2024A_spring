@@ -62,6 +62,7 @@ public class ViewController {
     public String binfo(){
         return "/board/info.html";
     }
-
-
+    //=====[api 관련]
+    @GetMapping("/api")
+    public String api (){return "/api/api.html";}
 }
