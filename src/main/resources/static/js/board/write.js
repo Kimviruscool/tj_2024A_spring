@@ -83,3 +83,15 @@ function doBoardWrite(){
                 error : (e)=>{console.log(e);}
     })
 }
+
+//3. summer note  start
+$(document).ready(function() {
+
+    // - summer note option
+    let option = {
+        height : 500,//에디터 높이
+        lang : 'ko-KR' //도움말이 한글로 표기
+    }
+
+  $('#summernote').summernote();
+});

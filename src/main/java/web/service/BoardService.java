@@ -52,13 +52,17 @@ public class BoardService {
 //        System.out.println(multipartFile.isEmpty()); //파일이 없으면 true 있으면 false
 //========================================================================================
         //파일 업로드
-        String uploadFileName = fileService.fileUpload(boardDto.getUploadFile());
-        //1. 만약에 업로드가 실패 했으면 글쓰기 실패
-        if(uploadFileName == null) return false;
-        //2. BoardDto 에 업로드된 파일명 담아주기
-        boardDto.setBfile(uploadFileName);
-        //--------------------- DB처리
+        //파일 존재의 유효성검사
+        if(boardDto.getUploadFile().isEmpty()){ //업로드 된 파일이 존재 하지 않으면
+        }else {
+            String uploadFileName = fileService.fileUpload(boardDto.getUploadFile());
+            //1. 만약에 업로드가 실패 했으면 글쓰기 실패
+            if(uploadFileName == null) return false;
+            //2. BoardDto 에 업로드된 파일명 담아주기
+            boardDto.setBfile(uploadFileName);
+        }
 
+        //--------------------- DB처리
         return boardDao.bWrite(boardDto);
     }
     
