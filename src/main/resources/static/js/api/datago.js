@@ -56,8 +56,10 @@ function api2(){
                                      </tr>`;
             })
             api2Tbody.innerHTML = html;
-        }
-    })
+            //4. 카카오지도 출력 함수에 데이터 매개변수 전달
+            api3(r.data);
+        } //success end
+    }) //ajax end
 }
 
 //3. 카카오 지도 API
@@ -76,6 +78,8 @@ function api2(){
         http://192.168.30.11:8080
 
 */
+
+function api3(data){ //api3 start //매개변수 : api2에서 전달받은 약국정보리스트
 //1. 지도를 담을 영역의 DOM 레퍼런스
 var mapContainer = document.querySelector('#map'); //지도를 담을 영역의 DOM 레퍼런스
 //2. 지도를 생성할 때 필요한 기본 옵션
@@ -87,3 +91,35 @@ var options = { //지도를 생성할 때 필요한 기본 옵션
 };
 //3. 지도 생성 및 객체 리턴
 var map = new kakao.maps.Map(mapContainer, options); //지도 생성 및 객체 리턴
+
+//4. 마커를 표시할 위치와 title 객체 배열입니다.
+//data  는 api2 함수에서는 공공데이터 포털의 인천 동구 약국 정보를 매개변수로 전달 받은 객체
+var positions = data.map (d=>{
+    //1. 객체 생성
+    let location = {title : d.약국명, latlng : new kakao.maps.LatLng(d.위도,d.경도)}
+    //2. 객체 리턴
+    return location; //반복하면서
+})
+console.log(positions);
+
+//5. 마커 이미지의 이미지 주소입니다.
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+//6. 반복문을 이용한 여러개 마커 생성
+for(var i = 0; i<positions.length ; i++){
+
+//마커 이미지의 이미지 크기 입니다.
+var imageSize = new kakao.maps.Size(24, 35);
+
+//마커 이미지를 생성합니다
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+//마커를 생성합니다.
+var marker = new kakao.maps.Marker({
+    map:map,
+    position : positions[i].latlng,
+    title : positions[i].title,
+    image : markerImage
+});
+}
+} //api3 end
