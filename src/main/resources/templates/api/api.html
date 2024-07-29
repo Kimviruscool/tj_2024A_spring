@@ -9,8 +9,45 @@
 <div th:replace="~{ /header.html :: header }"></div>
 <div class="container">
 
+    <div>
+        <h5>카카오 지도 샘플</h5>
+        <!--카카오 지도가 표시될 구역-->
+        <div id="map" style="width:500px;height:400px;"></div>
+    </div>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7a27b733a5e20c89d2f558d7452ff4c8"></script>
+
+    <div>
+        <h5> 인천시 동구 약국 현황</h5>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+            <th>약국명</th>
+            <th>전화번호</th>
+            <th>소재지도로명주소</th>
+            </tr>
+            </thead>
+            <tbody class="api2Tbody">
+
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h5> 부평구 주유소 현황</h5>
+        <table>
+            <tr>
+                <th>상호</th>
+                <th>전화번호</th>
+                <th>주소</th>
+            </tr>
+            <tbody class="api1Tbody">
+
+            </tbody>
+        </table>
+    </div>
 </div>
 <div th:replace="~{ /footer.html :: footer }"></div>
+
 
 <script src="/js/api/datago.js"></script>
 
