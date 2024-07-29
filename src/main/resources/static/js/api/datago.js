@@ -65,11 +65,25 @@ function api2(){
 1. 카카오개발자센터 : https://developers.kakao.com/
 2. 로그인
 3. 플랫폼 신청
-*/
-var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-var options = { //지도를 생성할 때 필요한 기본 옵션
-	center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-	level: 3 //지도의 레벨(확대, 축소 정도)
-};
+    1. 상단메뉴 > 내 애플리케이션 > 애플리케이션추가
+4. 애플리케이션 선택/클릭
+    사이드바 메뉴
+    [앱키] : 카카오API 사용할때 사용되는 인증키
+    javascript 키 확인, 카카오지도 활용
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6d95353c1b8109114d56af55ffb98178">
+    [플랫폼] : 카카오API 사용할 web url 등록
+    Web 플랫폼 등록
+        http://192.168.30.11:8080
 
-var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+*/
+//1. 지도를 담을 영역의 DOM 레퍼런스
+var mapContainer = document.querySelector('#map'); //지도를 담을 영역의 DOM 레퍼런스
+//2. 지도를 생성할 때 필요한 기본 옵션
+var options = { //지도를 생성할 때 필요한 기본 옵션
+    //지도의 중심좌표 위도 , 경도
+	center: new kakao.maps.LatLng(37.4562557, 126.7052062), //지도의 중심좌표.
+	 //지도의 레벨(확대, 축소 정도) 0(최대확대)~14(최대축소)
+	 level: 7
+};
+//3. 지도 생성 및 객체 리턴
+var map = new kakao.maps.Map(mapContainer, options); //지도 생성 및 객체 리턴
