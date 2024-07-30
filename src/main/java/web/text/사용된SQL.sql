@@ -110,3 +110,4 @@ select * from board inner join member on board.no = member.no limit 0,5;
 select * from board inner join member on board.no = member.no limit ?,?; 
 
 -- 정렬 : 작성일 순으로
+select * from board inner join member on board.no = member.no order by board.no desc limit 0,5;
