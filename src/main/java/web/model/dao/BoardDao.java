@@ -63,11 +63,13 @@ public class BoardDao extends Dao{
     }
 
     //글 전체 호출함수
-    public ArrayList<BoardDto> ball(){
+    public ArrayList<BoardDto> ball(int starRow, int pageboardSize){
         ArrayList<BoardDto> list = new ArrayList<>();
         try {
-            String sql = "select * from board join member";
+            String sql = "select * from board inner join member on board.no = member.no order my board.bno desc limit ?,?; ";
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, starRow);
+            ps.setInt(2, pageboardSize);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
 

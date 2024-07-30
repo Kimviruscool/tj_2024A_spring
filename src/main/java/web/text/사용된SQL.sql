@@ -85,3 +85,28 @@ select * from board join member join bcategory on board.bcno = bcategory.bcno wh
 select distinct * from board join member join bcategory;
 #JDBC : select * from board join member join bcategory on board.bcno = bcategory.bcno where bno = ?;
 #inner join
+
+#게시물 전체 출력
+select * from board;
+
+#limit 연산자 이용한 레코드 제한
+#limit 개수 : 개수만큼의 레코드 조회
+#limit 시작 레코드, 개수 : 시작 레코드(0~) 부터 개수만큼의 레코드 조회alter
+select * from board limit 0;
+select * from board limit 1;
+select * from board limit 1, 3;
+	#페이징 처리 활용 , 가정 : 하나의 페이지 당 ㄱ ㅔ시물 표시 수는 5개 씩
+    #1페이지 처리
+select * from board limit 0,5; #1페이지 일때 시작인덱스 : 0 , 1*5 
+    #2페이지 처리
+select * from board limit 5,5; #2페이지 시작 : 5 , 2 * 5 > 10
+    #3페이지 처리
+select * from board limit 10,5; #3페이지 시작 : 10
+#시작 인덱스의 계산식 : (현재페이지번호-1) * 페이지당 게시물 수
+
+-- 활용
+select * from board inner join member on board.no = member.no limit 0,5; 
+#JDBC
+select * from board inner join member on board.no = member.no limit ?,?; 
+
+-- 정렬 : 작성일 순으로

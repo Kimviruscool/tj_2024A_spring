@@ -67,10 +67,16 @@ public class BoardService {
     }
     
     //글 전체 호출함수
-    public ArrayList<BoardDto> ball(){
+    public ArrayList<BoardDto> ball(int page){
+        //1. 페이징 처리 에서 사용할 현재 페이지 번호
+        int pageboardSize = 5; //하나의 페이지당 5개씩 표시
+        //2. 페이지당 게시물을 출력할 시작레코드 번호
+        int starRow = (page - 1) * pageboardSize;
+
+
         System.out.println("BoardService.ball");
 
-        return boardDao.ball();
+        return boardDao.ball(starRow , pageboardSize);
     }
 
     //글 상세 호출 함수
