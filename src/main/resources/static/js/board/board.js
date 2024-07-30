@@ -1,11 +1,12 @@
 console.log('board.js');
 
-ball();
+ball(1);
 
-function ball(){ console.log('ball()');
+function ball(page){ console.log('ball()');
 $.ajax({
     method : "get",
     url : "/board/all",
+    data : {page : page},
     success : (r)=>{console.log(r);
     //어디에
     let boardBox = document.querySelector('.boardBox');
@@ -20,4 +21,5 @@ $.ajax({
     },
     error : (e)=>{console.log(e);}
 })
+
 }

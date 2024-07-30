@@ -66,7 +66,7 @@ public class BoardDao extends Dao{
     public ArrayList<BoardDto> ball(int starRow, int pageboardSize){
         ArrayList<BoardDto> list = new ArrayList<>();
         try {
-            String sql = "select * from board inner join member on board.no = member.no order my board.bno desc limit ?,?; ";
+            String sql = "select * from board inner join member on board.no = member.no order by board.no desc limit ?,?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, starRow);
             ps.setInt(2, pageboardSize);

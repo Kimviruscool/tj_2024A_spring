@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import web.model.dao.BoardDao;
 import web.model.dto.BoardDto;
+import web.model.dto.BoardPageDto;
 import web.model.dto.MemberDto;
 
 import java.util.ArrayList;
@@ -67,11 +68,13 @@ public class BoardService {
     }
     
     //글 전체 호출함수
-    public ArrayList<BoardDto> ball(int page){
-        //1. 페이징 처리 에서 사용할 현재 페이지 번호
+    public ArrayList<BoardDto> ball(BoardPageDto pageDto){
+        //만약에 페이지 번호가 매개변수로 존재하지 않으면 1페이지로  설정
+        if(pageDto.getPage() ==0){pageDto.setPage(1);}
+        //1. 하나의 페이지당 표시할 게시물수
         int pageboardSize = 5; //하나의 페이지당 5개씩 표시
         //2. 페이지당 게시물을 출력할 시작레코드 번호
-        int starRow = (page - 1) * pageboardSize;
+        int starRow = (pageDto.getPage() - 1) * pageboardSize;
 
 
         System.out.println("BoardService.ball");

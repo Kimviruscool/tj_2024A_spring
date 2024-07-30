@@ -3,6 +3,7 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import web.model.dto.BoardDto;
+import web.model.dto.BoardPageDto;
 import web.service.BoardService;
 
 import java.util.ArrayList;
@@ -41,10 +42,10 @@ public class BoardController {
 
     //글 전체 함수 호출
     @GetMapping("/all")
-    public ArrayList<BoardDto> ball(int page){
+    public ArrayList<BoardDto> ball(BoardPageDto pageDto){
         //페이징 처리에서 사용할 현 페이지
         System.out.println("BoardController.ball");
-        return boardService.ball(page);
+        return boardService.ball(pageDto);
     }
 
     //글 상세 호출

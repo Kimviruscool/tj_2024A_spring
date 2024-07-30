@@ -26,6 +26,17 @@
 <!--                <tr>  <th> 3 </th> <th> <a href="/board/view?bno=3">안녕하세요2</a> </th> <th> 유재석2 </th> <th> 2024-07-25 </th> <th> 0 </th>  </tr>-->
             </tbody>
         </table>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" onclick="ball()">이전</a></li>
+                <li class="page-item"><a class="page-link" onclick="ball()">1</a></li>
+                <li class="page-item"><a class="page-link" onclick="ball()">2</a></li>
+                <li class="page-item"><a class="page-link" onclick="ball()">3</a></li>
+                <li class="page-item"><a class="page-link" onclick="ball()">다음</a></li>
+            </ul>
+        </nav>
+
     </div>
     <script src="/js/board/board.js"></script>
     <div th:replace="~{ /footer.html :: footer }"></div>
