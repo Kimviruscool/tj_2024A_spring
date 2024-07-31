@@ -21,9 +21,14 @@ function info(){ console.log('info()');
                                  <div> 글번호 ${r.bno} </div>
                                  <div> 작성자 ${r.id} , 조회수 ${r.bview} , 작성일 ${r.bdate} </div>
                                  <div> 제목 ${r.btitle} </div>
-                                 <div> 내용 ${r.bcontent} </div>
-                                 <div> 첨부파일 ${r.bfile == null ? "" : r.bfile} <a href="/file/download?filename=${r.bfile}"> 다운로드 </a> </div>
-                                 <div>
+                                 <div> 내용 ${r.bcontent} </div> `;
+
+                                 if(board.bfile == null){}
+                                 else {
+                                 html += `<div> 첨부파일 ${r.bfile.split("_")[1])} <a href="/file/download?filename=${r.bfile}"> 다운로드 </a> </div>`;
+                                 }
+
+                                 html += `<div>
                                  <button type="button" onclick="location.href='/board/update?bno=${r.bno}'">수정</button>
                                  <button type="button" onclick="doBoardDelete${urlParams}">삭제</button>
                                  </div>`;
