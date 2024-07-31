@@ -6,7 +6,6 @@ import web.model.dto.BoardDto;
 import web.model.dto.BoardPageDto;
 import web.service.BoardService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,8 +41,8 @@ public class BoardController {
 
     //3. 글 전체 함수 호출
     @GetMapping("/all")
-    public ArrayList<BoardDto> ball(BoardPageDto pageDto){
-        // ---매개변수 : 
+    public BoardPageDto ball(BoardPageDto pageDto){
+        // ---매개변수 :
         //page : 페이징 처리에서 사용할 현 페이지
         //bcno : 현재 선택된 카테고리 번호
         //searchKey : 검색 조회시 사용되는 필드명

@@ -2,15 +2,11 @@ package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.multipart.MultipartFile;
 import web.model.dao.BoardDao;
 import web.model.dto.BoardDto;
 import web.model.dto.BoardPageDto;
 import web.model.dto.MemberDto;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -68,7 +64,7 @@ public class BoardService {
     }
     
     //글 전체 호출함수
-    public ArrayList<BoardDto> ball(BoardPageDto pageDto){
+    public BoardPageDto ball(BoardPageDto pageDto){
         //만약에 페이지 번호가 매개변수로 존재하지 않으면 1페이지로  설정
         if(pageDto.getPage() ==0){pageDto.setPage(1);}
         //1. 하나의 페이지당 표시할 게시물수
@@ -135,7 +131,7 @@ public class BoardService {
 
     //글 상세 호출 함수
     public BoardDto info(int bno){
-        System.out.println("BoardService.info");
+        boardDao.bviewIncrease(bno);
         return boardDao.info(bno);
     }
 }

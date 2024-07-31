@@ -64,7 +64,9 @@ public class BoardDao extends Dao{
 
     // 3-2. 전체 게시물수 반환 처리 , 조건추가1) 카테고리
     public int getTotalBoardSize( int bcno , String searchKey, String searchKeyword){
-        try{ String sql ="select count(*) as 총게시물수 from board ";
+        try{ String sql ="select count(*) as 총게시물수 " +
+                "from board inner join member " +
+                "on board.no = member.no";
 
             // 카테고리가 존재하면 , 0 이면 : 카테고리가 없다는 의미 , 1 이상 : 카테고리의 pk번호
             if( bcno >= 1 ){ sql += " where bcno = "+bcno; }
@@ -144,5 +146,17 @@ public class BoardDao extends Dao{
             }
         } catch (Exception e){System.out.println(e);} return null;
     } //함수 종료
+
+    //5. 조회수 증가 처리
+    public boolean bviewIncrease(int bno){
+        try{
+            String sql = "update board set bview = bview + 1 where bno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, bno);
+            int count = ps.executeUpdate();
+            if(count == 1) return true;
+        } catch (Exception e){System.out.println(e);} return false;
+    }
+
 
 } //DAO end
