@@ -74,9 +74,9 @@ select * from bcategory;
 
 #8 글쓰기 bcno[fk]카테고리, no[fk]회원
 insert into board(bcno,btitle,bcontent,no)values(1,"aa","atest",1);
-insert into board(bcno,btitle,bcontent,no)values(1,"bb","btest",1);
-insert into board(bcno,btitle,bcontent,no)values(1,"cc","ctest",1);
-insert into board(bcno,btitle,bcontent,no)values(1,"dd","dtest",1);
+insert into board(bcno,btitle,bcontent,no)values(2,"bb","btest",1);
+insert into board(bcno,btitle,bcontent,no)values(3,"cc","ctest",1);
+insert into board(bcno,btitle,bcontent,no)values(4,"dd","dtest",1);
 insert into board(bcno,btitle,bcontent,no)values(1,"ee","etest",1);
 insert into board(bcno,btitle,bcontent,no)values(1,"ff","ftest",1);
 #1번 회원이 1번카테고리에 안녕제목의 아무거나글을 작성
