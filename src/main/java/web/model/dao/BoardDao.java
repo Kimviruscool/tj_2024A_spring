@@ -62,11 +62,58 @@ public class BoardDao extends Dao{
         return false;
     }
 
+    // 3-2. 전체 게시물수 반환 처리 , 조건추가1) 카테고리
+    public int getTotalBoardSize( int bcno , String searchKey, String searchKeyword){
+        try{ String sql ="select count(*) as 총게시물수 from board ";
+
+            // 카테고리가 존재하면 , 0 이면 : 카테고리가 없다는 의미 , 1 이상 : 카테고리의 pk번호
+            if( bcno >= 1 ){ sql += " where bcno = "+bcno; }
+            // 검색이 존재 했을때, keyword가 존재하면
+            if (searchKeyword.isEmpty()){}
+            else { //비어있지 안흥면 검색이 있다라는 의미의 뜻 으로 활용
+                // 카테고리가 있을때는 and 추가
+                if(bcno>1){sql+="and";}
+                //카테고리가 없을때 {전체보기}는 where 추가
+                else {sql += "where";}
+                //검색 sql
+                sql += searchKey+"like '%"+searchKeyword+"%' ";
+
+            }
+            System.out.println( " sql : " + sql );
+            // 1. 전체보기 : select count(*) as 총게시물수 from board
+            // 2. 카테고리 보기 : select count(*) as 총게시물수 from board where bcno = 숫자
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if( rs.next() ){
+                return rs.getInt( 1 ); // "총게시물수"
+            }
+        }catch (Exception e ){ System.out.println("e = " + e); }
+        return 0;
+    }
+
     //글 전체 호출함수
-    public ArrayList<BoardDto> ball(int starRow, int pageboardSize){
+    public ArrayList<BoardDto> ball(int starRow, int pageboardSize, int bcno, String searchKey, String searchKeyword){
         ArrayList<BoardDto> list = new ArrayList<>();
-        try {
-            String sql = "select * from board inner join member on board.no = member.no order by board.no desc limit ?,?";
+        try {String sql = "select * " +              // 1. 조회
+                          " from board inner join member " +  // 2. 조인 테이블
+                          " on board.no = member.no ";        // 3. 조인 조건
+                          // 4. 일반 조건
+                          // - 전체보기 이면 where절 생략 , bcno = 0 이면
+                          // - 카테고리별 보기 이면 where 절 추가 , bcno >= 1 이상
+        if( bcno >= 1 ){ sql += " where bcno = " + bcno ; }
+
+        //4.일반 조건2
+            if (searchKeyword.isEmpty()){}
+            else {
+                if(bcno >=1){sql += "and";}
+                else {sql += "wehre";}
+                sql += searchKey + "like '%"+searchKeyword+"%' ";
+            }
+            // 5. 정렬 조건 , 내림차순
+            sql += " order by board.bno desc ";
+            // 6. 레코드 제한 , 페이징처리
+            sql += " limit ? , ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, starRow);
             ps.setInt(2, pageboardSize);

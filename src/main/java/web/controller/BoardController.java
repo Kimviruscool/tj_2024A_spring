@@ -40,16 +40,19 @@ public class BoardController {
         return boardService.bWrite(boardDto);
     }
 
-    //글 전체 함수 호출
+    //3. 글 전체 함수 호출
     @GetMapping("/all")
     public ArrayList<BoardDto> ball(BoardPageDto pageDto){
+        // ---매개변수 : 
         //page : 페이징 처리에서 사용할 현 페이지
         //bcno : 현재 선택된 카테고리 번호
+        //searchKey : 검색 조회시 사용되는 필드명
+        //searchKeyword : 검색 조회시 사용되는 필드의 값
         System.out.println("BoardController.ball");
         return boardService.ball(pageDto);
     }
 
-    //글 상세 호출
+    //4. 글 상세 호출
     @GetMapping("/boardinfo")
     public BoardDto info(int bno){
         System.out.println("BoardController.info");

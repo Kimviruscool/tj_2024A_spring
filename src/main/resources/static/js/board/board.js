@@ -1,5 +1,10 @@
 console.log('board.js');
 
+//2. 검색 버튼을 클릭 했을 때
+function onSearch(){
+
+}
+
 ball(1);
 
 function ball(page){ console.log('ball()');
