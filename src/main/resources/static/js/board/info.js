@@ -23,9 +23,10 @@ function info(){ console.log('info()');
                                  <div> 제목 ${r.btitle} </div>
                                  <div> 내용 ${r.bcontent} </div> `;
 
-                                 if(board.bfile == null){}
+                                 if(r.bfile == null){
+                                 }
                                  else {
-                                 html += `<div> 첨부파일 ${r.bfile.split("_")[1])} <a href="/file/download?filename=${r.bfile}"> 다운로드 </a> </div>`;
+                                 html += `<div> 첨부파일 ${r.bfile.split("_")[1]} <a href="/file/download?filename=${r.bfile}"> 다운로드 </a> </div>`;
                                  }
 
                                  html += `<div>
