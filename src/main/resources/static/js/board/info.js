@@ -3,21 +3,17 @@ console.log('info.js');
 info();
 function info(){ console.log('info()');
 
-            console.log('r1');
-
     let urlParams = new URL( location.href ).searchParams.get('bno');
-            console.log('r2');
             console.log(urlParams);
 
-
     $.ajax({
+        async : false,
         method : "get",
         url : "/board/boardinfo",
         data : {bno : urlParams},
         success : r => {
 
          console.log(r);
-                    console.log('r2');
                     //어디에
                     let infoBox = document.querySelector('.infoBox');
                     //무엇을

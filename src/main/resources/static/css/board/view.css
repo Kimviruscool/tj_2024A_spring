@@ -1,0 +1,19 @@
+.viewBox{
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.viewBox > .bTitle{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.viewBox > .bContent{
+    min-width: 500px;
+    border: 1px solid white;
+}
+
+.viewBox > .etcBox > span{
+    margin-right: 10px;
+}

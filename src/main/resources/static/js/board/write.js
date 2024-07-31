@@ -1,5 +1,18 @@
 console.log('write.js');
 
+//로그인 상태 체크
+$.ajax({
+    async : false,
+    method : 'get',
+    url : '/member/login/check',
+    success : r => {
+    if(r==""){
+    alert('로그인된 회원만 가능합니다.');
+    location.href="/member/login"
+        }
+    }
+}); //ajax end
+
 bcFindAll();
 //1. 카테고리 호출 , 실행조건 : JS가 열렸을때 사이트 활성화시 (상시 실행)
 function bcFindAll(){ console.log('bcFindAll()');

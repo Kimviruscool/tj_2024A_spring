@@ -62,23 +62,23 @@ public class BoardDao extends Dao{
         return false;
     }
 
-    // 3-2. 전체 게시물수 반환 처리 , 조건추가1) 카테고리
+    // 3-2. 전체 게시물수 반환 처리 , 조건추가1) 카테고리 검색
     public int getTotalBoardSize( int bcno , String searchKey, String searchKeyword){
         try{ String sql ="select count(*) as 총게시물수 " +
                 "from board inner join member " +
                 "on board.no = member.no";
 
             // 카테고리가 존재하면 , 0 이면 : 카테고리가 없다는 의미 , 1 이상 : 카테고리의 pk번호
-            if( bcno >= 1 ){ sql += " where bcno = "+bcno; }
+            if( bcno >= 1 ){ sql += " where bcno = "+bcno; } // 1. 전체보기 : select count(*) as 총게시물수 from board  // 2. 카테고리 보기 : select count(*) as 총게시물수 from board where bcno = 숫자
             // 검색이 존재 했을때, keyword가 존재하면
             if (searchKeyword.isEmpty()){}
             else { //비어있지 안흥면 검색이 있다라는 의미의 뜻 으로 활용
                 // 카테고리가 있을때는 and 추가
-                if(bcno>1){sql+="and";}
+                if(bcno>=1){sql+="and ";}
                 //카테고리가 없을때 {전체보기}는 where 추가
-                else {sql += "where";}
+                else {sql += " where ";}
                 //검색 sql
-                sql += searchKey+"like '%"+searchKeyword+"%' ";
+                sql += searchKey+" like '%"+searchKeyword+"%' ";
 
             }
             System.out.println( " sql : " + sql );
@@ -108,9 +108,9 @@ public class BoardDao extends Dao{
         //4.일반 조건2
             if (searchKeyword.isEmpty()){}
             else {
-                if(bcno >=1){sql += "and";}
-                else {sql += "wehre";}
-                sql += searchKey + "like '%"+searchKeyword+"%' ";
+                if(bcno >=1){sql += " and ";}
+                else {sql += " where ";}
+                sql += searchKey + " like '%"+searchKeyword+"%' ";
             }
             // 5. 정렬 조건 , 내림차순
             sql += " order by board.bno desc ";

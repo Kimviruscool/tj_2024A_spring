@@ -2,6 +2,7 @@ console.log('board.js');
 
 // * 페이지 정보들을 관리하는 객체, 전역변수, 함수의 매개 변수로 관리가 힘듦 */
 let pageInfo = {page : 1, bcno : 0, searchKey : 'btitle', searchKeyword : ''};
+console.log(pageInfo)
 //1. page : 현재페이지[기본값1], 2.bcno 현재카테고리[기본값0 전체보기] 3. searchkey:현재 검색필드[기본값:제목필드]4.searchKeyword:현재검색값[기본값:공백]
 
 //5. 검색 상태 제거/초기화 함수
@@ -20,6 +21,7 @@ function onCategory(bcno){ //4f
     onSearchClear(); //검색제거
     //1. 전역변수에 bcno 대입
     pageInfo.bcno = bcno;
+    console.log(pageInfo);
     //2. 새로고침 , 1페이지
     ball(1);
 } //4f
@@ -40,7 +42,7 @@ function getCategory(){ //3f
 
         r.forEach(c => {
                 html += `<div class="${pageInfo.bcno == c.bcno ? 'categoryActive' : ''}"
-                style="width:50px" onclick="onCategory(${c.bno} )"> ${c.bcname} </div>`
+                style="width:50px" onclick="onCategory(${c.bcno} )"> ${c.bcname} </div>`
             })
         } //success end
     }) //ajax end
