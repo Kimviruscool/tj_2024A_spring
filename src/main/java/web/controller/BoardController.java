@@ -43,7 +43,8 @@ public class BoardController {
     //글 전체 함수 호출
     @GetMapping("/all")
     public ArrayList<BoardDto> ball(BoardPageDto pageDto){
-        //페이징 처리에서 사용할 현 페이지
+        //page : 페이징 처리에서 사용할 현 페이지
+        //bcno : 현재 선택된 카테고리 번호
         System.out.println("BoardController.ball");
         return boardService.ball(pageDto);
     }
