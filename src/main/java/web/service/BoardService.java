@@ -138,6 +138,7 @@ public class BoardService {
 
     //글 수정 함수
     public boolean bupdate(Map<String, String>map) {
+
         return boardDao.bupdate(map);
     }
 }
