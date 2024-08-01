@@ -31,7 +31,7 @@ function info(){ console.log('info()');
 
                                  html += `<div>
                                  <button type="button" onclick="location.href='/board/update?bno=${r.bno}'">수정</button>
-                                 <button type="button" onclick="doBoardDelete${urlParams}">삭제</button>
+                                 <button type="button" onclick="dCheck()">삭제</button>
                                  </div>`;
                     //출력
                     infoBox.innerHTML=html;
