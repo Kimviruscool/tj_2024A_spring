@@ -167,3 +167,5 @@ limit 0 , 5;							#레코드 제한
 -- 활용2
 select count(*) as 총게시물수 from board where bcno = 1 and btitle like '%d%';
 #board 테이블의 bcno 가 1이며 btitle 에 d가 포함된 게시물 갯수를 count
+
+update board set btitle = "test", bcontent = "cehck", bcno = 2 where bno = 3;

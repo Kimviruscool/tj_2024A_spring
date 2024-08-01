@@ -159,4 +159,20 @@ public class BoardDao extends Dao{
     }
 
 
+    //글 수정 함수
+    public boolean bupdate(Map<String, String>map) {
+        System.out.println("map = " + map);
+        try{
+            String sql = "update board set btitle = ?, bcontent = ?, bcno = ? where bno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,map.get("btitle"));
+            ps.setString(2,map.get("bcontent"));
+            ps.setInt(3,Integer.parseInt(map.get("bcno")));
+            ps.setInt(4,Integer.parseInt(map.get("bno")));
+
+            int count = ps.executeUpdate();
+            if(count == 1){return true;}
+        } catch (Exception e){System.out.println(e);} return false;
+    }
+
 } //DAO end

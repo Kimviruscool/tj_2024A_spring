@@ -2,6 +2,7 @@ package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import web.model.dao.BoardDao;
 import web.model.dto.BoardDto;
 import web.model.dto.BoardPageDto;
@@ -133,5 +134,10 @@ public class BoardService {
     public BoardDto info(int bno){
         boardDao.bviewIncrease(bno);
         return boardDao.info(bno);
+    }
+
+    //글 수정 함수
+    public boolean bupdate(Map<String, String>map) {
+        return boardDao.bupdate(map);
     }
 }

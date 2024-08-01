@@ -60,6 +60,10 @@ public class BoardController {
     }
 
     //글 수정
+    @PutMapping("/update")
+    public boolean bupdate(@RequestBody Map<String, String>map){
+        return boardService.bupdate(map);
+    }
 
     //글 삭제
 }
