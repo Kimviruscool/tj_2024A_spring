@@ -141,4 +141,9 @@ public class BoardService {
 
         return boardDao.bupdate(map);
     }
+
+    //글 삭제 함수
+    public boolean bDelete(int bno){
+        return boardDao.bDelete(bno);
+    }
 }

@@ -18,3 +18,17 @@ $.ajax({
         }
     });
 }
+
+function bCheck(){
+    $.ajax({
+        async : false,
+        method : "get",
+        url : "/member/login/check",
+        success : r => {
+        if(r == ''){
+            alert('로그인하고 오세요');
+            location.href = "/member/login"}
+        else {doBoardUpdate()}
+       }
+    })
+}

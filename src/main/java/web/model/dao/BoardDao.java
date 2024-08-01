@@ -175,4 +175,16 @@ public class BoardDao extends Dao{
         } catch (Exception e){System.out.println(e);} return false;
     }
 
+    //글 삭제 함수
+    public boolean bDelete(int bno){
+        try{
+            String sql = "delete from board where bno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,bno);
+            int count = ps.executeUpdate();
+            if(count == 1){return true;}
+
+        } catch (Exception e){System.out.println(e);} return false;
+    }
+
 } //DAO end

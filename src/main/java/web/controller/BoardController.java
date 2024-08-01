@@ -66,4 +66,8 @@ public class BoardController {
     }
 
     //글 삭제
+    @DeleteMapping("/delete")
+    public boolean bDelete(int bno){
+        return boardService.bDelete(bno);
+    }
 }
