@@ -188,25 +188,24 @@ public class BoardDao extends Dao{
     }
     
     //댓글 작성 함수
-    //왜 DAO로 이동해야하는지
+    //왜 DAO로 이동해야하는지 : 실질적인 기능을 하는 부분 이라서
 
     public boolean bReplyWrite(Map<String, String>map){
         System.out.println("map = " + map);
         System.out.println("BoardDao.bReplyWrite");
-        //brindex : 대댓글번호 ,bcontent : 댓글내용 ,no : 사용자번호 ,bno : 게시물 번호
+        //brindex : 0이면 상위댓글 1이면 하위댓글 구분 ,bcontent : 댓글내용 ,no : 사용자번호 ,bno : 게시물 번호
        try{
            String sql = "insert into breply(brindex, brcontent, no , bno) values (?,?,?,?)";
-           //brindex, bcontent, no , bno
            PreparedStatement ps = conn.prepareStatement(sql);
-           ps.setInt(1,Integer.parseInt(map.get("brindex")));
+           ps.setInt(1,Integer.parseInt(map.get("brindex"))); //왜 parse.int를 사용하는지? String 으로 받아온 반환값을 int 로 형변환 해주기 위해서 (문자열 정수로 변환)
            ps.setString(2,map.get("bcontent"));
            ps.setInt(3,Integer.parseInt(map.get("no")));
            ps.setInt(4,Integer.parseInt(map.get("bno")));
 
            int count = ps.executeUpdate();
-           if (count == 1)return true;
+           if (count == 1)return true; //왜?? if(count ==1 )하는지? : 여러 번이 돌아가거나 안돌아갔을때 count 에 저장된값이 1이 아니게되는데 이때 함수의 실행을 막기위해
 
-       }catch (Exception e){System.out.println(e);} return false;
+       }catch (Exception e){System.out.println(e);} return false; //왜 true / false를 사용하는지? 함수의 반환타입이 boolean 이라서
     }
     
 } //DAO end

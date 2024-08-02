@@ -149,20 +149,20 @@ public class BoardService {
     }
 
     //게시물의 댓글 쓰기(post)(기능 서비스 ) 처리
-    // ??왜 Mapping안쓰는지
+    // ??왜 @Mapping안쓰는지  : 매핑할 필요가 없기 때문에 
     public boolean bReplyWrite(Map<String, String>map){
         System.out.println("breplywirte 는 = " + map);
         //작성자 (no) 는 별도의 클라이언트로 부터 입력받는 구조 아니다.
             // - 회원제 댓글 이라는 가정(로그인 정보는 로그인 객체 저장 된 상태)
-            // 왜?? 로그인 정보는 로그인 세션 객체에 저장 하는지?
+            // 왜?? 로그인 정보는 로그인 세션 객체에 저장 하는지?   : 세션객체에 저장함으로 써 매번 로그인 상태를 체크 할 필요가 없게 하기 위해서 세션에 저장
         Object object = memberService.mLoginCheck();
-            //왜 ?? object 타입인지?
+            //왜 ?? object 타입인지? : 반환되는 객체의 타입이 명확하지않기때문에 Object 타입으로 선언 이후에 캐스팅(변환) 하여 실제 타입으로 변환
         if (object == null){return false;}
         MemberDto loginDto = (MemberDto)object;
         int no = loginDto.getNo();
 
-        map.put("no", String.valueOf(no)); //왜 ? String.valueOf쓰는지
+        map.put("no", String.valueOf(no)); //왜 ? String.valueOf쓰는지 정수타입이여서 문자열로 변환하기위해
         System.out.println("map이란 = " + map);
-        return boardDao.bReplyWrite(map); // ??dho dao 를 사용??
+        return boardDao.bReplyWrite(map); // ??왜 dao 를 사용?? 웹요청과 직접적으로 연결되지 않기때문에 직접적으로 연결되어 처리하는 부분은 BOARDDAO
     }
 }

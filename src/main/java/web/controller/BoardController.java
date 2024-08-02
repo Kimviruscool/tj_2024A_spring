@@ -72,15 +72,15 @@ public class BoardController {
     }
     
     //게시물의 댓글 쓰기(post)(기능 서비스 ) 처리
-    @PostMapping("/reply/write") //글 작성이라서 POST
-//    @ResponseBody //java를 json 으로 반환
-//    @RequestBody //json을 java형 태로 반환
-//    @RequestParam //파라미터로 day 07 참고
-    public boolean bReplyWrite(@RequestBody Map<String, String>map){ //왜 MAP을 사용했는가?
+    @PostMapping("/reply/write") //글 작성이라서 POST 사용
+//    @ResponseBody //HTTP의(JSON) 요청을 java형태(파라미터) 으로 반환  /응답 /받기
+//    @RequestBody //HTTP의 요청을 java 형태로 반환 /요청 / 주기
+//    @RequestParam //HTTP의 요청을 파라미터로 반환해서 받기 /day 07 참고
+    public boolean bReplyWrite(@RequestBody Map<String, String>map){ //왜 MAP을 사용했는가? [JSON 형태로 받아오는 값을 키:값 형태로 처리하려고]
         System.out.println("map = " + map);
         System.out.println("BoardController.bReplyWrite");
 
-        return boardService.bReplyWrite(map); // 왜 서비스로 이동
+        return boardService.bReplyWrite(map); // 왜 service로 이동  : (오류발생시 쉽게찾기위해 , 유지보수의 용이)
     }
     
 }
