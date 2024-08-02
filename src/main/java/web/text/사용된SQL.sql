@@ -169,3 +169,19 @@ select count(*) as 총게시물수 from board where bcno = 1 and btitle like '%d
 #board 테이블의 bcno 가 1이며 btitle 에 d가 포함된 게시물 갯수를 count
 
 update board set btitle = "test", bcontent = "cehck", bcno = 2 where bno = 3;
+
+#게시물의 댓글
+drop table  if exists breply;
+create table breply(
+   brno   bigint unsigned ,  -- 댓글번호 [ pk ]
+    brindex bigint unsigned , -- ** 댓글인덱스( 댓글 위치 분류 ) , 0 : 최상위댓글 , 1이상 : PK(brno)참조하는 상위댓글번호  
+    brcontent varchar(255) , -- 댓글내용 
+    brdate datetime default now() , -- 작성일 
+    no bigint , -- 댓글을 작성한 작성자의 회원번호 [fk]
+    bno bigint unsigned ,  -- 댓글이 위치한 게시물번호 [ fk ]
+    primary key( brno ) , 
+    foreign key( no ) references member(no) on update cascade on delete cascade , 
+    foreign key( bno ) references board( bno ) on update cascade on delete cascade
+);
+
+select * from breply;
