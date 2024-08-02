@@ -186,5 +186,27 @@ public class BoardDao extends Dao{
 
         } catch (Exception e){System.out.println(e);} return false;
     }
+    
+    //댓글 작성 함수
+    //왜 DAO로 이동해야하는지
 
+    public boolean bReplyWrite(Map<String, String>map){
+        System.out.println("map = " + map);
+        System.out.println("BoardDao.bReplyWrite");
+        //brindex : 대댓글번호 ,bcontent : 댓글내용 ,no : 사용자번호 ,bno : 게시물 번호
+       try{
+           String sql = "insert into breply(brindex, bcontent, no , bno) values (?,?,?,?)";
+           //brindex, bcontent, no , bno
+           PreparedStatement ps = conn.prepareStatement(sql);
+           ps.setInt(1,Integer.parseInt(map.get("brindex")));
+           ps.setString(2,map.get("bcontent"));
+           ps.setInt(3,Integer.parseInt(map.get("no")));
+           ps.setInt(4,Integer.parseInt(map.get("bno")));
+
+           int count = ps.executeUpdate();
+           if (count == 1)return true;
+
+       }catch (Exception e){System.out.println(e);} return false;
+    }
+    
 } //DAO end

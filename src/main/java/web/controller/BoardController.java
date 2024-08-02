@@ -70,4 +70,14 @@ public class BoardController {
     public boolean bDelete(int bno){
         return boardService.bDelete(bno);
     }
+    
+    //게시물의 댓글 쓰기(post)(기능 서비스 ) 처리
+    @PostMapping("/reply/write") //글 작성이라서 POST
+    public boolean bReplyWrite(Map<String, String>map){ //왜 MAP을 사용했는가?
+        System.out.println("map = " + map);
+        System.out.println("BoardController.bReplyWrite");
+
+        return boardService.bReplyWrite(map); // 왜 서비스로 이동
+    }
+    
 }

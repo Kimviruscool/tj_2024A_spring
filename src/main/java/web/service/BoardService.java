@@ -2,6 +2,7 @@ package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import web.model.dao.BoardDao;
 import web.model.dto.BoardDto;
@@ -145,5 +146,23 @@ public class BoardService {
     //글 삭제 함수
     public boolean bDelete(int bno){
         return boardDao.bDelete(bno);
+    }
+
+    //게시물의 댓글 쓰기(post)(기능 서비스 ) 처리
+    // ??왜 Mapping안쓰는지
+    public boolean bReplyWrite(Map<String, String>map){
+        System.out.println("breplywirte 는 = " + map);
+        //작성자 (no) 는 별도의 클라이언트로 부터 입력받는 구조 아니다.
+            // - 회원제 댓글 이라는 가정(로그인 정보는 로그인 객체 저장 된 상태)
+            // 왜?? 로그인 정보는 로그인 세션 객체에 저장 하는지?
+        Object object = memberService.mLoginCheck();
+            //왜 ?? object 타입인지?
+        if (object == null){return false;}
+        MemberDto loginDto = (MemberDto)object;
+        int no = loginDto.getNo();
+
+        map.put("no", String.valueOf(no)); //왜 ? String.valueOf쓰는지
+
+        return boardDao.bReplyWrite(map); // ??dho dao 를 사용??
     }
 }
