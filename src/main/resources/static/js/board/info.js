@@ -32,6 +32,11 @@ function info(){ console.log('info()');
                                  html += `<div>
                                  <button type="button" onclick="location.href='/board/update?bno=${r.bno}'">수정</button>
                                  <button type="button" onclick="dCheck()">삭제</button>
+                                 </div>
+
+                                 <div>
+                                 <textarea class="brcontent"></textarea>
+                                 <button type="button">댓글등록</button>
                                  </div>`;
                     //출력
                     infoBox.innerHTML=html;
@@ -41,4 +46,8 @@ function info(){ console.log('info()');
         }
 
     })
+}
+
+function onReplyWrite(){
+    console.log('onReplyWrite()');
 }
