@@ -165,4 +165,9 @@ public class BoardService {
         System.out.println("map이란 = " + map);
         return boardDao.bReplyWrite(map); // ??왜 dao 를 사용?? 웹요청과 직접적으로 연결되지 않기때문에 직접적으로 연결되어 처리하는 부분은 BOARDDAO
     }
+
+    //게시물 댓글 전체 출력
+    public List<Map<String , String>> replyAll (int bno){
+        return boardDao.replyAll(bno);
+    }
 }

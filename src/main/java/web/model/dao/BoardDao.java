@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import web.model.dto.BoardDto;
 
+import javax.xml.transform.Result;
 import java.lang.reflect.Executable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -198,7 +199,7 @@ public class BoardDao extends Dao{
            String sql = "insert into breply(brindex, brcontent, no , bno) values (?,?,?,?)";
            PreparedStatement ps = conn.prepareStatement(sql);
            ps.setInt(1,Integer.parseInt(map.get("brindex"))); //왜 parse.int를 사용하는지? String 으로 받아온 반환값을 int 로 형변환 해주기 위해서 (문자열 정수로 변환)
-           ps.setString(2,map.get("bcontent"));
+           ps.setString(2,map.get("brcontent"));
            ps.setInt(3,Integer.parseInt(map.get("no")));
            ps.setInt(4,Integer.parseInt(map.get("bno")));
 
@@ -207,5 +208,25 @@ public class BoardDao extends Dao{
 
        }catch (Exception e){System.out.println(e);} return false; //왜 true / false를 사용하는지? 함수의 반환타입이 boolean 이라서
     }
-    
+
+    //게시물 댓글 전체 출력
+    public List<Map<String , String>> replyAll (int bno){
+
+        List<Map<String , String>> list = new ArrayList<>();
+
+        try{
+            String sql = "select brcontent from breply where bno = ?;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,bno);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Map<String , String> map = new HashMap<>();
+
+                map.put("brcontent",rs.getString("brcontent"));
+
+                list.add(map);
+            }
+        } catch (Exception e ){System.out.println(e);} return list;
+    }
+
 } //DAO end

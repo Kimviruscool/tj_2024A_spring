@@ -82,5 +82,11 @@ public class BoardController {
 
         return boardService.bReplyWrite(map); // 왜 service로 이동  : (오류발생시 쉽게찾기위해 , 유지보수의 용이)
     }
-    
+
+    //게시물 댓글 출력 기능 처리
+    @GetMapping("/reply/getAll")
+    public List<Map<String , String>> replyAll (int bno){
+        return boardService.replyAll(bno);
+    }
+
 }

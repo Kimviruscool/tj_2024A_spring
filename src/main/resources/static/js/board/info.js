@@ -3,6 +3,8 @@ console.log('info.js');
 
 //let urlParams = new URL( location.href ).searchParams.get('bno');
 info();
+replyAll();
+
 function info(){ console.log('info()');
 
     let urlParams = new URL( location.href ).searchParams.get('bno');
@@ -38,6 +40,10 @@ function info(){ console.log('info()');
                                  <div>
                                  <textarea class="brcontent"></textarea>
                                  <button type="button" onclick="onReplyWrite()">댓글등록</button>
+                                 </div>
+
+                                 <div> 댓글 출력구역
+                                 <div class="replyAll"></div>
                                  </div>`;
                     //출력
                     infoBox.innerHTML=html;
@@ -75,3 +81,31 @@ function onReplyWrite(){
         } //success end
     }) //ajax end
 } //function end
+
+function replyAll(){
+    let urlParams = new URL( location.href ).searchParams.get('bno');
+
+    $.ajax({
+        async : false,
+        method : "get",
+        url : "/board/reply/getAll",
+        data : {bno : urlParams},
+        success : r => {
+                console.log(r);
+
+                //어디에
+                let replyAll = document.querySelector('.replyAll');
+                //무엇을
+                let html = ``;
+
+                r.forEach(e => {
+                html += `<div> ${e.brcontent} </div>`
+                });
+
+                //출력
+                replyAll.innerHTML = html;
+
+        }
+    })
+
+}
