@@ -1,10 +1,11 @@
 console.log('info.js');
 
+
+//let urlParams = new URL( location.href ).searchParams.get('bno');
 info();
 function info(){ console.log('info()');
 
     let urlParams = new URL( location.href ).searchParams.get('bno');
-            console.log(urlParams);
 
     $.ajax({
         async : false,
@@ -36,7 +37,7 @@ function info(){ console.log('info()');
 
                                  <div>
                                  <textarea class="brcontent"></textarea>
-                                 <button type="button">댓글등록</button>
+                                 <button type="button" onclick="onReplyWrite()">댓글등록</button>
                                  </div>`;
                     //출력
                     infoBox.innerHTML=html;
@@ -50,4 +51,27 @@ function info(){ console.log('info()');
 
 function onReplyWrite(){
     console.log('onReplyWrite()');
-}
+    let urlParams = new URL( location.href ).searchParams.get('bno');
+
+    let brcontent = document.querySelector('.brcontent').value;
+    //let bno = bno; //현재 보고있는 게시물 번호
+//    let brindex = 0; // 0 : 댓글
+
+    let info = {brindex : 0 , bno : urlParams, brcontent : brcontent}
+
+    $.ajax({
+        async : false,
+        method : "post",
+        url : "/board/reply/write",
+        data : JSON.stringify(info),            //json 문자열 데이터로 변환
+        contentType : "application/json", //왜 application/json 을 사용하는지?
+            //contentType : "application/x-www-form-urlencoded" : ajax 기본
+            //contentType : false , > contentType : multipart/form-data (첨부파일 바이너리)
+            //contentType : "application/json" (POST/PUT 이면서 첨부파일이 없을 때 주로 json)
+        success : r => {
+            console.log(r);
+            if(r == true){alert("댓글쓰기 성공");}
+            else {alert("댓글쓰기 실패 : 로그인후 사용 가능합니다.");}
+        } //success end
+    }) //ajax end
+} //function end

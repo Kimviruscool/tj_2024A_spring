@@ -195,7 +195,7 @@ public class BoardDao extends Dao{
         System.out.println("BoardDao.bReplyWrite");
         //brindex : 대댓글번호 ,bcontent : 댓글내용 ,no : 사용자번호 ,bno : 게시물 번호
        try{
-           String sql = "insert into breply(brindex, bcontent, no , bno) values (?,?,?,?)";
+           String sql = "insert into breply(brindex, brcontent, no , bno) values (?,?,?,?)";
            //brindex, bcontent, no , bno
            PreparedStatement ps = conn.prepareStatement(sql);
            ps.setInt(1,Integer.parseInt(map.get("brindex")));

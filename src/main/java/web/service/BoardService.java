@@ -162,7 +162,7 @@ public class BoardService {
         int no = loginDto.getNo();
 
         map.put("no", String.valueOf(no)); //왜 ? String.valueOf쓰는지
-
+        System.out.println("map이란 = " + map);
         return boardDao.bReplyWrite(map); // ??dho dao 를 사용??
     }
 }
