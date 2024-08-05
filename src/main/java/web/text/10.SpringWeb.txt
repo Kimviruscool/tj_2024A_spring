@@ -71,3 +71,57 @@
         EX1) $.ajax (http) -------------> 아파치 Tomcat Server (http) / AJAX 가 HTTP 를 사용하는 것
         EX2) 크롬 (http) -------------> 아파치 Tomcat Server (http)
         EX3) Talend Api(http) ---------> 아파치 Tomcat Server (http)
+
+[2] 웹 서버 (WEB SERVER)
+    - 웹 서버란 : 클라이언트의 요청으로 부터  자원을 응답하는 컴퓨터/소프트웨어
+
+    - 종류 : 정적 서버(static pages) , 동적 서버(dynamic pages)
+        - 정적서버 : html , css , js , img 등등 파일들 , 아파치 서버 프로그램
+        - 동적서버 : Servlet , JSP , 타임리프(html) , 머스테치 등등 파일들 , 톰캣 서버 프로그램
+        - 아파치 톰캣 서버 프로그램 : 정적서버 와 동적서버 를 동시에 지원한다.
+
+[2-1] WAS : Web Application Server
+    - 개념
+        1. Web 서버 프로그램이 설치된 컴퓨터
+        2. http 로 부터 요청을 받아 정적/동적 파일 제공하는 컴퓨터
+        3. 클라이언트의 요청을 WAS 에게 보내고 WAS 에서 처리한 결과를 클라이언트에게 전달하는 방식
+        4. WAS 는 웹서버 , 웹컨테이너 , 서블릿 컨테이너 라고도 불린다.
+    - 역할
+        1. Web server(정적파일) + Web Container(동적파일) 처리
+        2. 비지니스/서비스 로직 수행
+        3. 여러개 요청을 관리 기능
+
+[2-2] 동작 구조
+    1. 클라이언트가 HTTP 를 이용한 WAS 에게 요청을 보낸다.
+    2. AWS 는 관련된 Servlet 생성[init()] 또는 할당(찾기) 한다.
+    3. 스레드 생성 또는 할당 받는다.
+    4. HttpServletRequest , HttpServletResponse 객채를 생성 한다.
+    5. Thread 는 Servlet service 메소드를 호출한다.
+    6. service 메소드는 각 http method 요청에 맞게 doGet(), doPost(), 등등 메소드를 호출한다.
+    7. doGet() , doPost() 메소드는 HttpServletRequest , HttpServletResponse 매개변수 받아서 요청/응답 정보를 확인할 수 있다.
+    8. HttpServletResponse 객채를 이용한 Web server 에게 응답 데이터를 전달한다.
+    9. 생성된 스레드는 종료하고, HttpServletRequest , HttpServletResponse 객채도 제거한다.
+        -Servlet 객채는 제거하지 않는다. 나중에 재사용하기 위해 제거하지 않는다.
+
+Client ========== HTTP ==========> WAS(웹서버)
+ - 브라우저                           Web Server ----------> Web Container --------> 스레드 생성 ------> 서블릿 생성
+ - ajax                               (정적파일)                (동적파일)                                - init(생성)
+ - 모바일                                                                                               - service() --------> doGet(), doPost() -------> DAO(추후작업) ----> DB
+                                                                                                       - destroy(종료)
+       <========== HTTP ==========              <==========================================
+
+[2-3] 서블릿 의 생명주기
+    1. 메소드
+        -init() : 해당 서블릿의 초기화 작업을 하는 메소드 , 서블릿 당 1번 실행
+        -service() : 해당 서블릿이 사용자에게 서비스하기 위해 정의한 메소드, 클라이언트 요청 마다 실행
+            -doGet() , doPost(), doPut(), doDelete() 에게 연결
+        - doXXX() : 비지니스 로직 처리, DB 처리
+        - destroy() : 해당 서블릿이 메모리에게 해제 , 서버가 종료될때 실행
+    2. 생명 순서
+        1. 사용자로부터 요청이 들어오면 컨테이너로 요청 정보가 전해진다.
+        2. 컨테이너 배포서술사(xml)의 서블릿 맵핑 정보를 참조하여 해당 서블릿을 찾는다.
+            최초 요청이면 서블릿 생성 -> init()
+            최초 요청이 아니면 맵핑 정보를 찾아 서블릿 객채를 요청 한다.
+        3. class loading 한다. (불러오기)
+        4. 요청에 대한 응답 처리 해준다.
+        5. 서블릿 객체 소멸된다. (서버가 종료될 때)
