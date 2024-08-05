@@ -1,0 +1,73 @@
+[1] HTTP : HYPER TEXT Trancfer PROTOCOL : 하이퍼텍스트 통신 규약
+    - 상태가 무상태 프로토콜 이다.
+    - 독립적이다 , 데이터를 주고 받기 위한 각각의 데이터 요청과 응답
+    - HTTP1.1 (주로 사용되는 버전)
+    -경로 : 통신할 위치
+        http://localhost:8080/member/board/view?bno=?
+        - URL : Uniform Resource Location (링크) , 웹주소(자원의 위치 네트워크 상의 리소스가 어디에 있는지 알려주는 규약)
+            http://localhost:8080/member/board/view
+        - URI : 각종 정보들의 유일한 이름이나 위치를 표시하는 규약
+            http://localhost:8080/member/board/view?bno=? (* 쿼리 스트링) [?bno=?]
+            http://localhost:8080/member/board/view#id명 (내부위치이동 방식) [#id]
+            http://localhost:8080/member/board/view/? (경로매개변수 방식) [/?]
+
+        - HTTPS: http의 보안이 강화된 버전이다.
+            - 통신의 인증과 암호화를 위해 만들어진 프로토콜
+            - 인증서 발급 업체로 부터 발급받는다. ex) 보험
+            - 해당 웹페이지에서 문제 발생시 보상 해주는 보험 같은 개념
+
+    [1-1] HTTP Header (HTTP 통신 정보)
+        1. host : 요청을 전송 되는 타겟의 url 주소 (주로 : 웹 서버) , 해당 자원을 가지고 있는 주인, 웹서버 주소
+        2. Content Type : 요청과 응답을 보내는 데이터의 type 타입 정보 , 받는 측에서 데이터를 어떻게(분석/파싱) 처리 할지 판단한다.
+            - application/json , text/html , application/x-www-form-urlencoded , multipart/formed-data 등등
+        3. body : 데이터 본문
+            - POST,PUT 사용가능 / GET,DELETE 는 사용불가
+            -
+    [1-2] HTTP METHOD
+
+        [REST API : URL을 이용해서 자원의 상태를 주고받는 아키텍처/구조 ]
+
+        1. GET      : REST API 에서는 주로 자원 요청 [R]
+        2. POST     : REST API 에서는 주로 자원 등록/저장 요청 [C]
+        3. PUT      : REST API 에서는 주로 자원 수정 요청 [U]
+        4. DELETE   : REST API 에서는 주로 자원 삭제/제거 요청 [D]
+
+    [1-3] HTTP 사용하는 소프트웨어 , 라이브러리 , 프레임워크
+        1. 브라우저(크롬,엣지,사파리)
+        2. JQuery(AJAX)
+        3. 아파치 톰캣
+        4. Spring @Controller
+        5. Talend API
+
+    * 데이터 와 타입
+        - 데이터/자료 : 자료 : 순수한 자원/정보/값
+        - 타입 : 정보의 분류/식별 , 정보/데이터/자료 의 식별
+            - 왜???? : 자원을 적재적소에 맞게 사용하기 위해 (자원의 사용시 해당 자원의 사용방법을 정의)
+            EX ) JAVA 에서 의 타입
+                String(문자열) > "3" , int(정수) 3 , byte(정수) 3
+
+    * 쿼리스트링 과 BODY
+        - 편지봉투 : 보낸 사람 , 받는 사람
+        - 편지지 : 내용물
+        EX1) POST, BODY 사용
+             편지봉투 : http://localhost:8080/board/view
+             편지지 : {bno : 1}
+
+        EX2) GET, BODY 미사용
+             편지봉투 : http://localhost:8080/board/view?bno=?
+             편지지 : X
+
+        - 쿼리스트링 : URL 상의 자원의정보가 노출이 된다. (보안 X)
+            ex)http://localhost:8080/member/board/view?bno=?
+
+        - BODY : URL 상의 자원정보가 노출이 안된다. (보안 O), 개인정보 가 존재하는 데이터는 POST, PUT 사용한다.
+            ex)http://localhost:8080/member/board/view
+
+    * HTTP 의 통신 예시
+        생활속 예시 )
+        1. 무전기(단방향)
+        2. 핸드폰 <-----------> 핸드폰 , 공중전화 , 테블릿 , 집전화 (양방향/쌍방향)
+
+        EX1) $.ajax (http) -------------> 아파치 Tomcat Server (http) / AJAX 가 HTTP 를 사용하는 것
+        EX2) 크롬 (http) -------------> 아파치 Tomcat Server (http)
+        EX3) Talend Api(http) ---------> 아파치 Tomcat Server (http)
