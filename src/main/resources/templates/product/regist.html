@@ -10,6 +10,11 @@
 <div>
 
     <form id="productForm"> <!--파일 여러개 올리기 : multiple-->
+        <!--form 전송은 name : (dto와 맞출이름)-->
+        제품명 : <input name="ptitle" type="text"/> <br/>
+        제품설명 : <textarea name="pcontent"> </textarea> <br/>
+        제품가격 : <input name="pprice" type="text" /> <br/>
+        제품사진들 :
         <input name="files" type="file"  multiple accept="image/jpeg, image/png, image/gif"/> <!--form전송은 name으로 맞춰야함-->
         <!-- multiple 여러개 첨부, accept="허용첨부파일 확장자" -->
         <button type="button" onclick="onRegister()"> 등록 </button>
