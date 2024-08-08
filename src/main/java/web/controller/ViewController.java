@@ -68,4 +68,7 @@ public class ViewController {
 // ========================== 제품등록 =================================
     @GetMapping("/product/register")
     public String pRegister(){return "/product/regist.html";}
+
+    @GetMapping("/product/product")
+    public String pproduct(){return "/product/product.html";}
 }

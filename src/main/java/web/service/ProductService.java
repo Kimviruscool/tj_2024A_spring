@@ -35,4 +35,9 @@ public class ProductService { //class start
         return productDao.pRegister(productDto);
     } //pRegister(method) end
 
+    //상품 목록 출력 함수
+    public List<ProductDto> getProductFindAll(){
+        return productDao.getProductFindAll();
+    }
+
 } //class end

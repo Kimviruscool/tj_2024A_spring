@@ -13,8 +13,19 @@ import java.util.UUID;
 
 @Service
 public class FileService {
+
+    /*
+    프로젝트명
+        - build 폴더 : 배포 된 클래스/파일 들
+        - src 폴더 : 배포 전 개발자가 파일을 코드(파일) 작성하는 곳
+        배포 : 내코드를 웹서버에 올림/빌드 함으로 써 외부(클라이언트) 로 부터 리소스 제공할 수 있다.
+    */
+
     //[0] 파일이 저장된 위치 경로 정의 필드
-    String uploadPath = "C:\\Users\\tj-bu-703-04\\Desktop\\Spring\\src\\main\\resources\\static\\upload\\";
+        //[배포 전]개발자코드 프로젝트 내 upload 폴더 경로
+//    String uploadPath = "C:\\Users\\tj-bu-703-04\\Desktop\\Spring\\src\\main\\resources\\static\\upload\\";
+        //[배포 후]프로잭트 내 build > upload 경로
+    String uploadPath = "C:\\Users\\tj-bu-703-04\\Desktop\\Spring\\build\\resources\\main\\static\\upload\\";
 
     //[1] 파일 업로드 : 매개변수로 파일의바이트가 저장된 MultipartFile 인터페이스
     //업로드 된 파일명 반환
