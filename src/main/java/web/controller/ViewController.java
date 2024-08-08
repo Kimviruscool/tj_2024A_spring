@@ -65,4 +65,7 @@ public class ViewController {
     //=====[api 관련]
     @GetMapping("/api")
     public String api (){return "/api/api.html";}
+// ========================== 제품등록 =================================
+    @GetMapping("/product/register")
+    public String pRegister(){return "/product/regist.html";}
 }
